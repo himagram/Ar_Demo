@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <script>THREEx.ArToolkitContext.baseURL = 'https://jeromeetienne.github.io/AR.js/three.js/'</script>
+    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script>
+        function deviceMotionListener(event) {
+            var x = event.accelerationIncludingGravity.x;
+            var y = event.accelerationIncludingGravity.y;
+            var z = event.accelerationIncludingGravity.z;			
+            document.querySelector('#x1').innerText = x;
+            document.querySelector('#y1').innerText = y;
+            document.querySelector('#z1').innerText = z;
+
+            x = event.acceleration.x;
+            y = event.acceleration.y;
+            z = event.acceleration.z;
+            document.querySelector('#x2').innerText = x;
+            document.querySelector('#y2').innerText = y;
+            document.querySelector('#z2').innerText = z;	
+        }
+
+        function deviceOrientationListener(event) {
+            var alpha = event.alpha;
+            var beta = event.beta;
+            var gamma = event.gamma;
+            document.querySelector('#alpha').innerText = alpha;
+            document.querySelector('#beta').innerText = beta;
+            document.querySelector('#gamma').innerText = gamma;
+        }
+
+        // Add a event listener for tracking camera's position and rotation
+        window.onload = function () {
+
+            var camera = document.getElementById('camera');
+
+            camera.addEventListener('componentchanged', function (evt) {
+                switch (evt.detail.name) {
+                    case 'rotation':
+                        //console.log('camera rotation changed', evt.detail.newData);
+                        var compassRotation = camera.components['compass-rotation'];
+                        var lookControls = camera.components['look-controls'];
+                        camera_angle.innerText = evt.detail.newData.y;
+                        if (lookControls) {
+                            yaw_angle.innerText = THREE.Math.radToDeg(lookControls.yawObject.rotation.y);
+                        }
+
+                        if (compassRotation) {
+                            compass_heading.innerText = compassRotation.heading;
+                        }
+                        break;
+                    case 'position':
+                        //console.log('camera position changed', evt.detail.newData);
+                        var gpsPosition = camera.components['gps-position'];
+                        camera_p_x.innerText = evt.detail.newData.x;
+                        camera_p_z.innerText = evt.detail.newData.z;
+                        if (gpsPosition) {
+                            if (gpsPosition.coords) {
+                                crd_longitude.innerText = gpsPosition.coords.longitude;
+                                crd_latitude.innerText = gpsPosition.coords.latitude;
+                                crd_accuracy.innerText = gpsPosition.coords.accuracy;
+                            }
+                            if (gpsPosition.zeroCoords) {
+                                zero_crd_longitude.innerText = gpsPosition.zeroCoords.longitude;
+                                zero_crd_latitude.innerText = gpsPosition.zeroCoords.latitude;
+                            }
+                        }
+
+                        break;
+                }
+            });
+    
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener("deviceorientation", deviceOrientationListener);
+              } else {
+                alert("Sorry, your browser doesn't support Device Orientation");
+              }
+    
+            if('ondevicemotion' in window) {
+                 window.addEventListener('devicemotion', deviceMotionListener);
+            }
+        };
+    </script>
+</head>
+
+<body>
+
+    <div id="tracking-panel">
+        <div>
+            coords:
+            <span id="crd_longitude"></span>,
+            <span id="crd_latitude"></span><br>
+
+            (zero coords:
+            <span id="zero_crd_longitude"></span>,
+            <span id="zero_crd_latitude"></span>)<br>
+
+            GPS accuracy:
+            <span id="crd_accuracy"></span><br>
+
+            Acceleration Including Gravity:<br>
+            x: <span id="x1"></span><br>
+            y: <span id="y1"></span><br>
+            z: <span id="z1"></span><br><br>
+    
+            Acceleration:<br>
+            x: <span id="x2"></span><br>
+            y: <span id="y2"></span><br>
+            z: <span id="z2"></span><br><br>
+    
+            Gyroscope:<br>
+            alpha: <span id="alpha"></span><br>
+            beta: <span id="beta"></span><br>
+            gamma: <span id="gamma"></span><br>
+
+            compass heading:
+                <span id="compass_heading"><br>
+        </div>
+        <div>
+            camera coords:
+            <span id="camera_p_x"></span>,
+            <span id="camera_p_z"></span><br>
+        </div>
+        <div>
+            camera angle:
+            <span id="camera_angle"></span>, yaw angle:
+            <span id="yaw_angle"></span><br>
+        </div>
+        <div>
+            Device device orientation:
+            <span id="device_orientation">
+        </div>
+    </div>
+
+    <a-scene embedded arjs="sourceType: webcam;">
+        <a-camera id="camera" user-height="1.6" gps-position compass-rotation>
+        </a-camera>
+
+        <a-entity road>
+        </a-entity>
+    </a-scene>
+
+    <script>
+            
+    </script>
+</body>
+
+</html>
