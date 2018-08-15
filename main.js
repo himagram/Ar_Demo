@@ -78,13 +78,13 @@
         }) *
             (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
-        docuemnt.querySelector("#crd_x").innerText = position.x;
-        docuemnt.querySelector("#crd_y").innerText = position.y;
-        docuemnt.querySelector("#crd_z").innerText = position.z;
+        document.querySelector("#crd_x").innerText = position.x;
+        document.querySelector("#crd_y").innerText = position.y;
+        document.querySelector("#crd_z").innerText = position.z;
 
-        docuemnt.querySelector("#zero_x").innerText = oldX;
-        docuemnt.querySelector("#zero_y").innerText = oldY;
-        docuemnt.querySelector("#zero_z").innerText = oldZ;
+        document.querySelector("#zero_x").innerText = oldX;
+        document.querySelector("#zero_y").innerText = oldY;
+        document.querySelector("#zero_z").innerText = oldZ;
 
         return position;
     }
