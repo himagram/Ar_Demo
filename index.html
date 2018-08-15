@@ -31,7 +31,7 @@
             GPS accuracy:
             <span id="crd_accuracy"></span><br>
 
-            Acceleration Including Gravity:<br>
+            <!-- Acceleration Including Gravity:<br>
             x: <span id="x1"></span><br>
             y: <span id="y1"></span><br>
             z: <span id="z1"></span><br><br>
@@ -44,7 +44,7 @@
             Gyroscope:<br>
             alpha: <span id="alpha"></span><br>
             beta: <span id="beta"></span><br>
-            gamma: <span id="gamma"></span><br>
+            gamma: <span id="gamma"></span><br> -->
 
             compass heading:
                 <span id="compass_heading"><br>
@@ -74,30 +74,30 @@
     </a-scene>
 
     <script>
-        function deviceMotionListener(event) {
-            var x = event.accelerationIncludingGravity.x;
-            var y = event.accelerationIncludingGravity.y;
-            var z = event.accelerationIncludingGravity.z;			
-            document.querySelector('#x1').innerText = x;
-            document.querySelector('#y1').innerText = y;
-            document.querySelector('#z1').innerText = z;
+        // function deviceMotionListener(event) {
+        //     var x = event.accelerationIncludingGravity.x;
+        //     var y = event.accelerationIncludingGravity.y;
+        //     var z = event.accelerationIncludingGravity.z;			
+        //     document.querySelector('#x1').innerText = x;
+        //     document.querySelector('#y1').innerText = y;
+        //     document.querySelector('#z1').innerText = z;
 
-            x = event.acceleration.x;
-            y = event.acceleration.y;
-            z = event.acceleration.z;
-            document.querySelector('#x2').innerText = x;
-            document.querySelector('#y2').innerText = y;
-            document.querySelector('#z2').innerText = z;	
-        }
+        //     x = event.acceleration.x;
+        //     y = event.acceleration.y;
+        //     z = event.acceleration.z;
+        //     document.querySelector('#x2').innerText = x;
+        //     document.querySelector('#y2').innerText = y;
+        //     document.querySelector('#z2').innerText = z;	
+        // }
 
-        function deviceOrientationListener(event) {
-            var alpha = event.alpha;
-            var beta = event.beta;
-            var gamma = event.gamma;
-            document.querySelector('#alpha').innerText = alpha;
-            document.querySelector('#beta').innerText = beta;
-            document.querySelector('#gamma').innerText = gamma;
-        }
+        // function deviceOrientationListener(event) {
+        //     var alpha = event.alpha;
+        //     var beta = event.beta;
+        //     var gamma = event.gamma;
+        //     document.querySelector('#alpha').innerText = alpha;
+        //     document.querySelector('#beta').innerText = beta;
+        //     document.querySelector('#gamma').innerText = gamma;
+        // }
 
         // Add a event listener for tracking camera's position and rotation
         window.onload = function () {
@@ -122,7 +122,6 @@
                     case 'position':
                         //console.log('camera position changed', evt.detail.newData);
                         var gpsPosition = camera.components['gps-position'];
-                        alert(gpsPosition);
                         document.querySelector('#camera_p_x').innerText = evt.detail.newData.x;
                         document.querySelector('#camera_p_z').innerText = evt.detail.newData.z;
                         
