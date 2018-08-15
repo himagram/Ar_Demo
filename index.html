@@ -113,10 +113,10 @@
                         break;
                     case 'position':
                         //console.log('camera position changed', evt.detail.newData);
-                        alert(gpsPosition.zeroCoords.longitude);
                         var gpsPosition = camera.components['gps-position'];
                         document.querySelector('#camera_p_x').innerText = evt.detail.newData.x;
                         document.querySelector('#camera_p_z').innerText = evt.detail.newData.z;
+                        alert(gpsPosition.zeroCoords.longitude);
                         if (gpsPosition) {
                             if (gpsPosition.coords) {
                                 document.querySelector('#crd_longitude').innerText = "" + gpsPosition.coords.longitude;
