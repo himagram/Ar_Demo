@@ -50,11 +50,11 @@
     }
 
     GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
-        var oldX = position.x;
-        var oldY = position.y;
-        var oldZ = position.z;
+        var oldX = zeroCoords.x;
+        var oldY = zeroCoords.y;
+        var oldZ = zeroCoords.z;
         
-        position.x = position.x + (GPSUtils.calculateDistance(zeroCoords, {
+        position.x = zeroCoords.x + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
@@ -62,7 +62,7 @@
 
         position.y = coords.altitude - zeroCoords.altitude;
 
-        position.z = position.z + (GPSUtils.calculateDistance(zeroCoords, {
+        position.z = zeroCoords.z + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
             latitude: coords.latitude
         }) *
