@@ -19,10 +19,12 @@
         if (typeof (error) == 'undefined')
             error = function(err) {
                 console.warn('GPSUtils ERROR(' + err.code + '): ' + err.message);
+                alert('GPSUtils ERROR(' + err.code + '): ' + err.message);
             };
 
         if (!('geolocation' in navigator)) {
             error({ code: 0, message: 'Geolocation is not supported by your browser' });
+            alert('Geolocation is not supported by your browser');
             return;
         }
 
