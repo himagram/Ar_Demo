@@ -50,15 +50,15 @@
     }
 
     GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
-        position.x = GPSUtils.calculateDistance(zeroCoords, {
+        position.x = position.x + GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
             (coords.longitude > zeroCoords.longitude ? 1 : -1);
 
-        position.y = coords.altitude - zeroCoords.altitude;
+        position.y = position.y + coords.altitude - zeroCoords.altitude;
 
-        position.z = GPSUtils.calculateDistance(zeroCoords, {
+        position.z = position.z + GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
             latitude: coords.latitude
         }) *
@@ -338,7 +338,7 @@
             if (this.watchId) {
                 GPSUtils.clearWatch(watchId);
             }
-            this.watchId = null;EARTH_RADIUS
+            this.watchId = null;
         }
 
     });
