@@ -78,9 +78,13 @@
         }) *
             (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
-        var str = "oldX : " + oldX + ";\n" + "oldY : " + oldY + ";\n" + "oldZ : " + oldZ + "\n";
-        str += "x : " + position.x + ";\n" + "y : " + position.y + ";\n" + "z : " + position.z;
-        alert(str);
+        docuemnt.querySelector("#crd_x").innerText = position.x;
+        docuemnt.querySelector("#crd_y").innerText = position.y;
+        docuemnt.querySelector("#crd_z").innerText = position.z;
+
+        docuemnt.querySelector("#zero_x").innerText = oldX;
+        docuemnt.querySelector("#zero_y").innerText = oldY;
+        docuemnt.querySelector("#zero_z").innerText = oldZ;
 
         return position;
     }
