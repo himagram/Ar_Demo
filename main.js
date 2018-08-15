@@ -54,7 +54,7 @@
         var oldY = position.y;
         var oldZ = position.z;
         
-        position.x = (GPSUtils.calculateDistance(zeroCoords, {
+        position.x = position.x + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
@@ -62,7 +62,7 @@
 
         position.y = coords.altitude - zeroCoords.altitude;
 
-        position.z = (GPSUtils.calculateDistance(zeroCoords, {
+        position.z = position.z + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
             latitude: coords.latitude
         }) *
