@@ -41,8 +41,9 @@
                 switch (evt.detail.name) {
                     case 'rotation':
                         //console.log('camera rotation changed', evt.detail.newData);
-                        var compassRotation = camera.components['compass-rotation'];
-                        var lookControls = camera.components['look-controls'];
+                        var compassRotation = camera.getAttribute('compass-rotation');
+                        var lookControls = camera.getAttribute('look-controls');
+                        alert(compassRotation);
                         document.querySelector('#camera_angle').innerText = evt.detail.newData.y;
                         if (lookControls) {
                             document.querySelector('#yaw_angle').innerText = THREE.Math.radToDeg(lookControls.yawObject.rotation.y);
