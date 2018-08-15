@@ -327,6 +327,7 @@
                 };
             }
 
+            alert(zeroCoords.latitude + "\n" + zeroCoords.longitude);
             // Get and save the result of 'navigator.geolocation.watchPosition'  as watching id
             this.watchId = this.watchGPS(this.watchGPSSuccess.bind(this));
         },
