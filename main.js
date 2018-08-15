@@ -53,7 +53,7 @@
         var oldX;
         var oldY;
         var oldZ;
-        if(zeroCoords){
+        if(zeroCoords == null){
             oldX = 0;
             oldY = 0;
             oldZ = 0;
