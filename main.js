@@ -1,4 +1,4 @@
-;(function () {
+; (function () {
 
     "use strict";
 
@@ -17,7 +17,7 @@
 
     GPSUtils.getGPSPosition = function (success, error, options) {
         if (typeof (error) == 'undefined')
-            error = function(err) {
+            error = function (err) {
                 console.warn('GPSUtils ERROR(' + err.code + '): ' + err.message);
             };
 
@@ -49,22 +49,9 @@
         return angle * EARTH_RADIUS;
     }
 
-    GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
-        var oldX;
-        var oldY;
-        var oldZ;
-        if(zeroCoords == null || zeroCoords.latitude == null || zeroCoords.altitude == null || zeroCoords.longitude == null){
-            oldX = 0;
-            oldY = 0;
-            oldZ = 0;
-        }
-        else{
-            oldX = position.x;
-            oldY = position.y;
-            oldZ = position.z;
-        }
-        
-        position.x = oldX + (GPSUtils.calculateDistance(zeroCoords, {
+    GPSUtils.getRelativePosition = function (position, zeroCoords, coords, flg) {
+
+        position.x = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
@@ -72,92 +59,93 @@
 
         position.y = coords.altitude - zeroCoords.altitude;
 
-        position.z = oldZ + (GPSUtils.calculateDistance(zeroCoords, {
+        position.z = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
             latitude: coords.latitude
         }) *
             (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
-        document.querySelector("#crd_x").innerText = position.x;
-        document.querySelector("#crd_y").innerText = position.y;
-        document.querySelector("#crd_z").innerText = position.z;
+        if (flg) {
+            document.querySelector("#crd_x").innerText = position.x;
+            document.querySelector("#crd_y").innerText = position.y;
+            document.querySelector("#crd_z").innerText = position.z;
+        }
+        else{
 
-        document.querySelector("#zero_x").innerText = oldX;
-        document.querySelector("#zero_y").innerText = oldY;
-        document.querySelector("#zero_z").innerText = oldZ;
+        }
 
         return position;
     }
 
-    GPSUtils.clearWatch = function(watchId) {
+    GPSUtils.clearWatch = function (watchId) {
         navigator.clearWatch(watchId);
     }
 
     function CompassUtils() { }
 
     // browser agnostic orientation
-    CompassUtils.getBrowserOrientation = function() {
-      var orientation;
-      if (screen.orientation && screen.orientation.type) {
-        orientation = screen.orientation.type;
-      } else {
-        orientation = screen.orientation ||
-                      screen.mozOrientation ||
-                      screen.msOrientation;
-      }
-  
-      /*
-        'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
-                                  device is in 'normal' orientation
-                                for (screen width > screen height, e.g. large tablet, laptop)
-                                  device has been turned 90deg clockwise from normal
-  
-        'portrait-secondary':    for (screen width < screen height)
-                                  device has been turned 180deg from normal
-                                for (screen width > screen height)
-                                  device has been turned 90deg anti-clockwise (or 270deg clockwise) from normal
-  
-        'landscape-primary':    for (screen width < screen height)
-                                  device has been turned 90deg clockwise from normal
-                                for (screen width > screen height)
-                                  device is in 'normal' orientation
-  
-        'landscape-secondary':  for (screen width < screen height)
-                                  device has been turned 90deg anti-clockwise (or 270deg clockwise) from normal
-                                for (screen width > screen height)
-                                  device has been turned 180deg from normal
-      */
-  
-      
-  
-      // iOS
-      if (orientation === undefined){
-        var rotation = window.orientation
-        
-        switch(rotation) {
-          case 0:  
-          // Portrait
-          orientation = "portrait-primary"
-          break; 
-          
-          case 180:  
-            // Portrait (Upside-down)
-            orientation = "portrait-secondary"
-            break; 
+    CompassUtils.getBrowserOrientation = function () {
+        var orientation;
+        if (screen.orientation && screen.orientation.type) {
+            orientation = screen.orientation.type;
+        } else {
+            orientation = screen.orientation ||
+                screen.mozOrientation ||
+                screen.msOrientation;
+        }
+
+        /*
+          'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
+                                    device is in 'normal' orientation
+                                  for (screen width > screen height, e.g. large tablet, laptop)
+                                    device has been turned 90deg clockwise from normal
     
-          case -90:  
-            // Landscape (Clockwise)
-            orientation = "landscape-primary"
-            break;  
+          'portrait-secondary':    for (screen width < screen height)
+                                    device has been turned 180deg from normal
+                                  for (screen width > screen height)
+                                    device has been turned 90deg anti-clockwise (or 270deg clockwise) from normal
     
-          case 90:  
-            // Landscape  (Counterclockwise)
-            orientation = "landscape-secondary"
-            break;
-        }   
-      }
-  
-      return orientation;
+          'landscape-primary':    for (screen width < screen height)
+                                    device has been turned 90deg clockwise from normal
+                                  for (screen width > screen height)
+                                    device is in 'normal' orientation
+    
+          'landscape-secondary':  for (screen width < screen height)
+                                    device has been turned 90deg anti-clockwise (or 270deg clockwise) from normal
+                                  for (screen width > screen height)
+                                    device has been turned 180deg from normal
+        */
+
+
+
+        // iOS
+        if (orientation === undefined) {
+            var rotation = window.orientation
+
+            switch (rotation) {
+                case 0:
+                    // Portrait
+                    orientation = "portrait-primary"
+                    break;
+
+                case 180:
+                    // Portrait (Upside-down)
+                    orientation = "portrait-secondary"
+                    break;
+
+                case -90:
+                    // Landscape (Clockwise)
+                    orientation = "landscape-primary"
+                    break;
+
+                case 90:
+                    // Landscape  (Counterclockwise)
+                    orientation = "landscape-secondary"
+                    break;
+            }
+        }
+
+        return orientation;
     }
 
     CompassUtils.getCompassHeading = function (alpha, beta, gamma) {
@@ -349,9 +337,9 @@
         updatePosition: function () {
             if (this.coords.accuracy > this.data.accuracy) { return; }
 
-            if (!this.zeroCoords) { this.zeroCoords = this.coords; }
+            if (this.zeroCoords == null) { this.zeroCoords = this.coords; }
 
-            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
+            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords, true);
             this.el.setAttribute('position', p);
         },
 
@@ -450,9 +438,9 @@
                 console.warn('evt.alpha === null');
             }
 
-             // Adjust compass heading
+            // Adjust compass heading
             var adjustment = 0;
-            if(this.defaultOrientation === "landscape"){
+            if (this.defaultOrientation === "landscape") {
                 adjustment = -90;
             }
 
@@ -462,9 +450,9 @@
 
                 if (this.defaultOrientation !== this.currentOrientation[0]) {
                     if (this.defaultOrientation === "landscape") {
-                      adjustment -= 270;
+                        adjustment -= 270;
                     } else {
-                      adjustment -= 90;
+                        adjustment -= 90;
                     }
                 }
 
@@ -488,13 +476,13 @@
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
             // if (typeof deviceOrientation !== "undefined") {
             //     var currentOrientation = deviceOrientation.split("-");
-        
+
             //     if (currentOrientation[0] === "landscape") {
             //         adjustment -= 270; 
             //     } else {
             //         adjustment -= 90;
             //     }
-        
+
             //     if (currentOrientation[1] === "secondary") {
             //       adjustment -= 180;
             //     }
@@ -536,7 +524,7 @@
         // Path
         points: [
             { latitude: 21.046199, longitude: 105.795431, altitude: 0 },
-            { latitude: 21.046179, longitude: 105.794699, altitude: 0 },    
+            { latitude: 21.046179, longitude: 105.794699, altitude: 0 },
             { latitude: 21.046184, longitude: 105.794385, altitude: 0 }
         ],
 
@@ -572,8 +560,11 @@
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
 
-                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
+                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point, false);
                     relativePoints.push(p);
+                    document.querySelector("#line_x").innerText = p.x;
+                    document.querySelector("#line_y").innerText = p.y;
+                    document.querySelector("#line_z").innerText = p.z;
                 });
 
                 // Change to meshline
