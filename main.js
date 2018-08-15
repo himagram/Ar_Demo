@@ -59,9 +59,9 @@
             oldZ = 0;
         }
         else{
-            oldX = zeroCoords.latitude;
-            oldY = zeroCoords.altitude;
-            oldZ = zeroCoords.longitude;
+            oldX = position.x;
+            oldY = position.y;
+            oldZ = position.z;
         }
         
         position.x = oldX + (GPSUtils.calculateDistance(zeroCoords, {
