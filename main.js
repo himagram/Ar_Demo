@@ -68,8 +68,8 @@
         }) *
             (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
-        var str = "oldX : " + oldX + ";" + "oldY : " + oldY + ";" + "oldZ : " + oldZ + "\n";
-        str += "x : " + position.x + ";" + "y : " + position.y + ";" + "z : " + position.z;
+        var str = "oldX : " + oldX + ";\n" + "oldY : " + oldY + ";\n" + "oldZ : " + oldZ + "\n";
+        str += "x : " + position.x + ";\n" + "y : " + position.y + ";\n" + "z : " + position.z;
         alert(str);
 
         return position;
