@@ -53,15 +53,15 @@
         var oldX;
         var oldY;
         var oldZ;
-        if(zeroCoords == null){
+        if(zeroCoords == null || zeroCoords.latitude == null || zeroCoords.altitude == null || zeroCoords.longitude == null){
             oldX = 0;
             oldY = 0;
             oldZ = 0;
         }
         else{
-            oldX = zeroCoords.x;
-            oldY = zeroCoords.y;
-            oldZ = zeroCoords.z;
+            oldX = zeroCoords.latitude;
+            oldY = zeroCoords.altitude;
+            oldZ = zeroCoords.longitude;
         }
         
         position.x = oldX + (GPSUtils.calculateDistance(zeroCoords, {
