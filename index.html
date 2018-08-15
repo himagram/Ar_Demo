@@ -114,6 +114,7 @@
                     case 'position':
                         //console.log('camera position changed', evt.detail.newData);
                         var gpsPosition = camera.components['gps-position'];
+                        alert(gpsPosition);
                         document.querySelector('#camera_p_x').innerText = evt.detail.newData.x;
                         document.querySelector('#camera_p_z').innerText = evt.detail.newData.z;
                         
