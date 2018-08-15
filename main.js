@@ -49,14 +49,19 @@
         return angle * EARTH_RADIUS;
     }
 
-    GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
+    GPSUtils.getRelativePosition = function (position, zeroCoords, coords, flg) {
         position.x = GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
             (coords.longitude > zeroCoords.longitude ? 1 : -1);
 
-        position.y = coords.altitude - zeroCoords.altitude;
+        if(flg == 0){
+            position.y = coords.altitude - zeroCoords.altitude;
+        }
+        else{
+            position.y = coords.altitude - zeroCoords.altitude;
+        }
 
         position.z = GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
@@ -318,6 +323,7 @@
         },
 
         watchGPSSuccess: function (position) {
+            alert("updated!");
             // After watching position successfully, update coordinate of component
             this.coords = position.coords;
             // Update relative position in AR/VR scence
@@ -329,7 +335,7 @@
 
             if (!this.zeroCoords) { this.zeroCoords = this.coords; }
 
-            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
+            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords, 0);
             this.el.setAttribute('position', p);
         },
 
@@ -550,7 +556,7 @@
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
 
-                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
+                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point, 1);
 
                     relativePoints.push(p);
                 });
