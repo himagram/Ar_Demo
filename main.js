@@ -50,19 +50,19 @@
     }
 
     GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
-        position.x = position.x + GPSUtils.calculateDistance(zeroCoords, {
+        position.x = position.x + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
             latitude: zeroCoords.latitude
         }) *
-            (coords.longitude > zeroCoords.longitude ? 1 : -1);
+            (coords.longitude > zeroCoords.longitude ? 1 : -1));
 
         position.y = position.y + coords.altitude - zeroCoords.altitude;
 
-        position.z = position.z + GPSUtils.calculateDistance(zeroCoords, {
+        position.z = position.z + (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
             latitude: coords.latitude
         }) *
-            (coords.latitude > zeroCoords.latitude ? -1 : 1);
+            (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
         return position;
     }
@@ -331,7 +331,6 @@
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             this.el.setAttribute('position', p);
-            alert("camera");
         },
 
         remove: function () {
@@ -552,7 +551,6 @@
                     var p = { x: 0, y: 0, z: 0 };
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
-                    alert("road!")
                     relativePoints.push(p);
                 });
 
