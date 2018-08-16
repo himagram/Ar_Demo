@@ -366,7 +366,7 @@
             document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#zero_z").innerText = this.zeroCoords.latitude;
 
-            document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
+            //document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
             this.el.setAttribute('position', p);
         },
 
