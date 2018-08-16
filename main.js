@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 100;
+    var GPS_MAX_ACCURY = 10;
     var coordinateArr = [];
 
     function GPSUtils() { }
@@ -367,6 +367,7 @@
             document.querySelector("#zero_z").innerText = this.zeroCoords.latitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
             this.el.setAttribute('position', p);
+            alert("updated!");
         },
 
         remove: function () {
