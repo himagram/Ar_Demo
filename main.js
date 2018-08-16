@@ -100,6 +100,8 @@
         }
 
         averageCoords.x = Number(averageX) / coordinateArr.length;
+        alert(averageX);
+        alert(averageCoords.x);
         averageCoords.y = Number(averageY) / coordinateArr.length;
         averageCoords.z = Number(averageZ) / coordinateArr.length;
 
