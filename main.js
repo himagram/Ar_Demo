@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 100;
+    var GPS_MAX_ACCURY = 10;
     var coordinateArr = [];
 
     function GPSUtils() { }
@@ -365,6 +365,7 @@
             document.querySelector("#zero_x").innerText = this.zeroCoords.longitude;
             document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#zero_z").innerText = this.zeroCoords.latitude;
+            document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
             this.el.setAttribute('position', p);
         },
 
@@ -489,6 +490,8 @@
             heading = heading + adjustment;
 
             this.heading = heading;
+
+            document.querySelector("#compass_heading").innerText = heading;
         },
 
         updateRotation: function () {
@@ -517,6 +520,8 @@
             //var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+
+            document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
 
         remove: function () {
