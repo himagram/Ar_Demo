@@ -362,9 +362,9 @@
             document.querySelector("#crd_y").innerText = p.y;
             document.querySelector("#crd_z").innerText = p.z;
 
-            document.querySelector("#zero_x").innerText = this.zeroCoords.x;
-            document.querySelector("#zero_y").innerText = this.zeroCoords.y;
-            document.querySelector("#zero_z").innerText = this.zeroCoords.z;
+            document.querySelector("#zero_x").innerText = this.zeroCoords.longitude;
+            document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
+            document.querySelector("#zero_z").innerText = this.zeroCoords.latitude;
             this.el.setAttribute('position', p);
         },
 
