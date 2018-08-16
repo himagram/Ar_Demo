@@ -94,14 +94,11 @@
         let averageZ = 0;
         for(let i = 0 ; i < coordinateArr.length; i ++){
             averageX += Number(coordinateArr[i].x);
-            alert(coordinateArr[i].x);
             averageY += Number(coordinateArr[i].y);
             averageZ += Number(coordinateArr[i].z);
         }
 
         averageCoords.x = Number(averageX) / coordinateArr.length;
-        alert(averageX);
-        alert(averageCoords.x);
         averageCoords.y = Number(averageY) / coordinateArr.length;
         averageCoords.z = Number(averageZ) / coordinateArr.length;
 
