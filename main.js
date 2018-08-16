@@ -597,7 +597,7 @@
             if (this.points) {
                 var relativePoints = [];
 
-                if (cameraGpsPosition.coords.accuracy > cameraGpsPosition.data.accuracy) { return; }
+                //if (cameraGpsPosition.coords.accuracy > cameraGpsPosition.data.accuracy) { return; }
 
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
