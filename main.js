@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 10;
+    var GPS_MAX_ACCURY = 100;
     var coordinateArr = [];
 
     function GPSUtils() { }
@@ -530,7 +530,6 @@
     AFRAME.registerComponent('road', {
         cameraGpsPosition: null,
         deferredInitIntervalId: 0,
-        watchId: null,
 
         schema: {
             latitude: {
@@ -550,7 +549,7 @@
         // Path
         points: [
             { latitude: 21.046199, longitude: 105.795431, altitude: 0 },
-            { latitude: 21.046179, longitude: 105.794699, altitude: 50 },
+            { latitude: 21.046179, longitude: 105.794699, altitude: 10 },
             { latitude: 21.046184, longitude: 105.794385, altitude: 0 }
         ],
 
@@ -558,20 +557,6 @@
             if (this.deferredInit()) { return; }
 
             this.deferredInitIntervalId = setInterval(this.deferredInit.bind(this), 1000);
-
-            // Get and save the result of 'navigator.geolocation.watchPosition'  as watching id
-            this.watchId = this.watchGPS(this.watchGPSSuccess.bind(this));
-        },
-
-        watchGPS: function (success, error) {
-            return GPSUtils.getGPSPosition(success, error, { maximumAge: 0, timeout: 27000 });
-        },
-
-        watchGPSSuccess: function (position) {
-            // After watching position successfully, update coordinate of component
-            // this.coords = position.coords;
-            // Update relative position in AR/VR scence
-            this.updatePosition();
         },
 
         // Try go get GPS position for zero coords
@@ -583,7 +568,7 @@
                 this.cameraGpsPosition = camera.components['gps-position'];
             }
 
-            if (!this.cameraGpsPosition.coords) { return; }
+            if (!this.cameraGpsPosition.zeroCoords) { return; }
 
             this.updatePosition();
 
@@ -597,12 +582,10 @@
             if (this.points) {
                 var relativePoints = [];
 
-                //if (cameraGpsPosition.coords.accuracy > cameraGpsPosition.data.accuracy) { return; }
-
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
 
-                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.coords, point, false);
+                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point, false);
                     relativePoints.push(p);
                     document.querySelector("#line_x").innerText = p.x;
                     document.querySelector("#line_y").innerText = p.y;
