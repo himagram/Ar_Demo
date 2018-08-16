@@ -524,7 +524,7 @@
         // Path
         points: [
             { latitude: 21.046199, longitude: 105.795431, altitude: 0 },
-            { latitude: 21.046179, longitude: 105.794699, altitude: 0 },
+            { latitude: 21.046179, longitude: 105.794699, altitude: 50 },
             { latitude: 21.046184, longitude: 105.794385, altitude: 0 }
         ],
 
