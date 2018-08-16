@@ -93,15 +93,16 @@
         let averageX;
         let averageY;
         let averageZ;
-        for(let i = 0 ; i< coordinateArr.length; i ++){
+        for(let i = 0 ; i < coordinateArr.length; i ++){
             averageX += Number(coordinateArr[i].x);
+            alert(coordinateArr[i].x);
             averageY += Number(coordinateArr[i].y);
             averageZ += Number(coordinateArr[i].z);
         }
 
-        averageCoords.x = averageX / coordinateArr.length;
-        averageCoords.y = averageY / coordinateArr.length;
-        averageCoords.z = averageZ / coordinateArr.length;
+        averageCoords.x = Number(averageX) / coordinateArr.length;
+        averageCoords.y = Number(averageY) / coordinateArr.length;
+        averageCoords.z = Number(averageZ) / coordinateArr.length;
 
         return averageCoords;
     }
