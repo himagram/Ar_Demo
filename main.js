@@ -68,12 +68,6 @@
 
         if (flg) {
             position = GPSUtils.filterCoords(position);
-            document.querySelector("#crd_x").innerText = position.x;
-            document.querySelector("#crd_y").innerText = position.y;
-            document.querySelector("#crd_z").innerText = position.z;
-        }
-        else{
-
         }
 
         return position;
@@ -364,6 +358,13 @@
             if (this.zeroCoords == null) { this.zeroCoords = this.coords; }
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords, true);
+            document.querySelector("#crd_x").innerText = p.x;
+            document.querySelector("#crd_y").innerText = p.y;
+            document.querySelector("#crd_z").innerText = p.z;
+
+            document.querySelector("#zero_x").innerText = this.zeroCoords.x;
+            document.querySelector("#zero_y").innerText = this.zeroCoords.y;
+            document.querySelector("#zero_z").innerText = this.zeroCoords.z;
             this.el.setAttribute('position', p);
         },
 
