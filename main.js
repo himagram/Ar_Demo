@@ -89,9 +89,9 @@
             coordinateArr.shift();
         }
         var averageCoords = { x: 0, y: 0, z: 0 };
-        let averageX;
-        let averageY;
-        let averageZ;
+        let averageX = 0;
+        let averageY = 0;
+        let averageZ = 0;
         for(let i = 0 ; i < coordinateArr.length; i ++){
             averageX += Number(coordinateArr[i].x);
             alert(coordinateArr[i].x);
