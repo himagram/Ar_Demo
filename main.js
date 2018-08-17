@@ -60,7 +60,7 @@
 
         // set y = 0.5 for testing
         //position.y = coords.altitude - zeroCoords.altitude;
-        position.y = 0.5;
+        position.y = coords.altitude;
 
         position.z = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
@@ -333,10 +333,10 @@
 
             if (this.zeroCoords == null) { 
                 this.zeroCoords = this.coords;
-
-                // set y = 0.5 for testing
-                this.zeroCoords.altitude = 0.5;
             }
+
+            // set y = 0.5 for testing
+            this.coords.altitude = 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             document.querySelector("#crd_longitude").innerText = this.coords.longitude;
@@ -575,6 +575,9 @@
 
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
+
+                    // set altitude = 0 for testing
+                    point.altitude = 0;
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
