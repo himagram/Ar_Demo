@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 15;
+    var GPS_MAX_ACCURY = 25;
     var LINE_COORDS = {};
 
     function GPSUtils() { }
@@ -58,7 +58,9 @@
         }) *
             (coords.longitude > zeroCoords.longitude ? 1 : -1));
 
-        position.y = coords.altitude - zeroCoords.altitude;
+        // set y = 0 for testing
+        //position.y = coords.altitude - zeroCoords.altitude;
+        position.y = 0;
 
         position.z = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
@@ -329,7 +331,12 @@
         updatePosition: function () {
             if (this.coords.accuracy > this.data.accuracy) { return; }
 
-            if (this.zeroCoords == null) { this.zeroCoords = this.coords; }
+            if (this.zeroCoords == null) { 
+                this.zeroCoords = this.coords;
+
+                // set y = 0 for testing
+                this.zeroCoords.altitude = 0;
+            }
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             document.querySelector("#crd_longitude").innerText = this.coords.longitude;
