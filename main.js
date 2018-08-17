@@ -12,6 +12,7 @@
 
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 23;
+    var LINE_COORDS = {};
 
     function GPSUtils() { }
 
@@ -342,6 +343,9 @@
             document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
             document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
+
+            document.querySelector("#line_distance").innerText = GPSUtils.calculateDistance(this.coords, LINE_COORDS);
+
             this.el.setAttribute('position', p);
             alert("updated!");
         },
@@ -573,6 +577,8 @@
                     document.querySelector("#line_x").innerText = p.x;
                     document.querySelector("#line_y").innerText = p.y;
                     document.querySelector("#line_z").innerText = p.z;
+
+                    LINE_COORDS = p;
                 });
 
                 // Change to meshline
