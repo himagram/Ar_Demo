@@ -438,6 +438,8 @@
                 console.warn('evt.alpha === null');
             }
 
+            alert(heading);
+
             // Adjust compass heading
             var adjustment = 0;
             if (this.defaultOrientation === "landscape") {
@@ -445,8 +447,6 @@
             }
 
             var browserOrientation = CompassUtils.getBrowserOrientation();
-
-            alert(browserOrientation);
 
             if (typeof browserOrientation !== "undefined") {
                 this.currentOrientation = browserOrientation.split("-");
