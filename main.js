@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 20;
+    var GPS_MAX_ACCURY = 10;
     var coordinateArr = [];
 
     function GPSUtils() { }
@@ -554,9 +554,9 @@
 
         // Path
         points: [
-            { latitude: 21.046715, longitude: 105.795566, altitude: 0 },
-            { latitude: 21.046715, longitude: 105.794870, altitude: 10 },
-            { latitude: 21.046715, longitude: 105.794616, altitude: 0 }
+            { latitude: 21.046715, longitude: 105.795566, altitude: 50 },
+            { latitude: 21.046715, longitude: 105.794870, altitude: 60 },
+            { latitude: 21.046715, longitude: 105.794616, altitude: 50 }
         ],
 
         init: function () {
