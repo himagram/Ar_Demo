@@ -12,7 +12,6 @@
 
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
-    var coordinateArr = [];
 
     function GPSUtils() { }
 
@@ -66,37 +65,11 @@
         }) *
             (coords.latitude > zeroCoords.latitude ? -1 : 1));
 
-        if (flg) {
-            position = GPSUtils.filterCoords(position);
-        }
-
         return position;
     }
 
     GPSUtils.clearWatch = function (watchId) {
         navigator.clearWatch(watchId);
-    }
-
-    GPSUtils.filterCoords = function(coordinate){
-        coordinateArr.push(coordinate);
-        if(coordinateArr.length > 4){
-            coordinateArr.shift();
-        }
-        var averageCoords = { x: 0, y: 0, z: 0 };
-        let averageX = 0;
-        let averageY = 0;
-        let averageZ = 0;
-        for(let i = 0 ; i < coordinateArr.length; i ++){
-            averageX += Number(coordinateArr[i].x);
-            averageY += Number(coordinateArr[i].y);
-            averageZ += Number(coordinateArr[i].z);
-        }
-
-        averageCoords.x = Number(averageX) / coordinateArr.length;
-        averageCoords.y = Number(averageY) / coordinateArr.length;
-        averageCoords.z = Number(averageZ) / coordinateArr.length;
-
-        return averageCoords;
     }
 
     function CompassUtils() { }
