@@ -8,9 +8,10 @@ body {
 }
 
 #tracking-panel {
-    position: fixed;
+    position: absolute;
     top: 10px;
-    width:100%;
+    right: 2px;
+    background: rgba(252, 132, 132, 0.1); 
     text-align: right;
     z-index: 1;
 }
