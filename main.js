@@ -570,6 +570,8 @@
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
+                    document.querySelector("#line_crd_longitude").innerText = point.longitude;
+                    document.querySelector("#line_crd_latitude").innerText = point.latitude;
                     document.querySelector("#line_x").innerText = p.x;
                     document.querySelector("#line_y").innerText = p.y;
                     document.querySelector("#line_z").innerText = p.z;
