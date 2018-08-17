@@ -445,6 +445,9 @@
             }
 
             var browserOrientation = CompassUtils.getBrowserOrientation();
+
+            alert(browserOrientation);
+
             if (typeof browserOrientation !== "undefined") {
                 this.currentOrientation = browserOrientation.split("-");
 
@@ -503,7 +506,6 @@
                 window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
             }
         }
-
     });
 
     AFRAME.registerComponent('road', {
