@@ -578,7 +578,7 @@
                     document.querySelector("#line_y").innerText = p.y;
                     document.querySelector("#line_z").innerText = p.z;
 
-                    LINE_COORDS = p;
+                    LINE_COORDS = point;
                 });
 
                 // Change to meshline
