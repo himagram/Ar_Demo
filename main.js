@@ -58,9 +58,9 @@
         }) *
             (coords.longitude > zeroCoords.longitude ? 1 : -1));
 
-        // set y = 0 for testing
+        // set y = 0.5 for testing
         //position.y = coords.altitude - zeroCoords.altitude;
-        position.y = 0;
+        position.y = 0.5;
 
         position.z = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
@@ -334,8 +334,8 @@
             if (this.zeroCoords == null) { 
                 this.zeroCoords = this.coords;
 
-                // set y = 0 for testing
-                this.zeroCoords.altitude = 0;
+                // set y = 0.5 for testing
+                this.zeroCoords.altitude = 0.5;
             }
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
