@@ -49,7 +49,7 @@
         return angle * EARTH_RADIUS;
     }
 
-    GPSUtils.getRelativePosition = function (position, zeroCoords, coords, flg) {
+    GPSUtils.getRelativePosition = function (position, zeroCoords, coords) {
 
         position.x = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: coords.longitude,
@@ -330,7 +330,7 @@
 
             if (this.zeroCoords == null) { this.zeroCoords = this.coords; }
 
-            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords, true);
+            var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             document.querySelector("#crd_longitude").innerText = this.coords.longitude;
             document.querySelector("#crd_latitude").innerText = this.coords.latitude;
 
@@ -567,7 +567,7 @@
                 this.points.forEach(point => {
                     var p = { x: 0, y: 0, z: 0 };
 
-                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point, false);
+                    GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
                     document.querySelector("#line_x").innerText = p.x;
                     document.querySelector("#line_y").innerText = p.y;
