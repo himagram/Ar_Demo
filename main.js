@@ -438,8 +438,6 @@
                 console.warn('evt.alpha === null');
             }
 
-            alert(heading);
-
             // Adjust compass heading
             var adjustment = 0;
             if (this.defaultOrientation === "landscape") {
