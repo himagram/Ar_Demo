@@ -331,13 +331,16 @@
             if (this.zeroCoords == null) { this.zeroCoords = this.coords; }
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords, true);
+            document.querySelector("#crd_longitude").innerText = this.coords.longitude;
+            document.querySelector("#crd_latitude").innerText = this.coords.latitude;
+
             document.querySelector("#crd_x").innerText = p.x;
             document.querySelector("#crd_y").innerText = p.y;
             document.querySelector("#crd_z").innerText = p.z;
 
-            document.querySelector("#zero_x").innerText = this.zeroCoords.longitude;
+            document.querySelector("#zero_crd_longitude").innerText = this.zeroCoords.longitude;
+            document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
             document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
-            document.querySelector("#zero_z").innerText = this.zeroCoords.latitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
             this.el.setAttribute('position', p);
             alert("updated!");
