@@ -527,9 +527,9 @@
 
         // Path
         points: [
-            { latitude: 21.046715, longitude: 105.795566, altitude: 50 },
-            { latitude: 21.046715, longitude: 105.794870, altitude: 60 },
-            { latitude: 21.046715, longitude: 105.794616, altitude: 50 }
+            { latitude: 21.046715, longitude: 105.795566, altitude: 49 },
+            { latitude: 21.046715, longitude: 105.794870, altitude: 49 },
+            { latitude: 21.046715, longitude: 105.794616, altitude: 49 }
         ],
 
         init: function () {
