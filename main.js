@@ -11,7 +11,7 @@
     }
 
     var EARTH_RADIUS = 6378160;
-    var GPS_MAX_ACCURY = 25;
+    var GPS_MAX_ACCURY = 15;
     var LINE_COORDS = {};
 
     function GPSUtils() { }
@@ -347,7 +347,6 @@
             document.querySelector("#line_distance").innerText = GPSUtils.calculateDistance(this.coords, LINE_COORDS);
 
             this.el.setAttribute('position', p);
-            alert("updated!");
         },
 
         remove: function () {
