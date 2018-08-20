@@ -550,7 +550,6 @@
             { latitude: 21.0464312, longitude: 105.795600, altitude: 0 },
             { latitude: 21.046138, longitude: 105.795292, altitude: 20 },
             { latitude: 21.046629, longitude: 105.794876, altitude: 10 },
-            { latitude: 21.046146, longitude: 105.794836, altitude: 15 },
             { latitude: 21.0464312, longitude: 105.794695, altitude: 0 }
         ],
 
