@@ -336,6 +336,7 @@
             }
 
             // set y = 0.5 for testing
+            alert(this.coords.altitude);
             this.coords.altitude = 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
