@@ -58,9 +58,7 @@
         }) *
             (coords.longitude > zeroCoords.longitude ? 1 : -1));
 
-        // set y = 0.5 for testing
         position.y = coords.altitude - zeroCoords.altitude;
-        //position.y = coords.altitude;
 
         position.z = (GPSUtils.calculateDistance(zeroCoords, {
             longitude: zeroCoords.longitude,
@@ -336,7 +334,7 @@
             }
 
             // set y = 0.5 for testing
-            //this.coords.altitude = 0.5;
+            this.coords.altitude = this.zeroCoords.altitude + 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             
@@ -578,7 +576,7 @@
                     var p = { x: 0, y: 0, z: 0 };
 
                     // set altitude = 0 for testing
-                    point.altitude = 0;
+                    point.altitude = this.cameraGpsPosition.zeroCoords.altitude;
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
