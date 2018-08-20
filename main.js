@@ -467,7 +467,7 @@
                     if (this.defaultOrientation === "landscape") {
                         adjustment -= 270;
                     } else {
-                        adjustment -= 90;
+                        //adjustment -= 90;
                     }
                 }
 
