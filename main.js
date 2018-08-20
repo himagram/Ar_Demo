@@ -474,7 +474,6 @@
                 if (this.currentOrientation[1] === "secondary") {
                     adjustment -= 180;
                 }
-                alert(adjustment);
             }
 
             heading = heading + adjustment;
