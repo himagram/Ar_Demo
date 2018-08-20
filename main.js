@@ -78,12 +78,9 @@
     // browser agnostic orientation
     CompassUtils.getBrowserOrientation = function () {
         var orientation;
-        alert(0);
         if (screen.orientation && screen.orientation.type) {
-            alert(1);
             orientation = screen.orientation.type;
         } else {
-            alert(2);
             orientation = screen.orientation ||
                 screen.mozOrientation ||
                 screen.msOrientation;
@@ -477,6 +474,7 @@
                 if (this.currentOrientation[1] === "secondary") {
                     adjustment -= 180;
                 }
+                alert(adjustment);
             }
 
             heading = heading + adjustment;
