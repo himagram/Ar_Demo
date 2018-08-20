@@ -337,7 +337,8 @@
             // this.coords.altitude = this.zeroCoords.altitude + 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
-            
+            p.y = 0.5;
+
             document.querySelector("#crd_longitude").innerText = this.coords.longitude;
             document.querySelector("#crd_latitude").innerText = this.coords.latitude;
 
