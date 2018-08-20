@@ -336,10 +336,11 @@
             }
 
             // set y = 0.5 for testing
-            alert(this.coords.altitude);
+            
             this.coords.altitude = 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
+            alert(this.coords.altitude);
             document.querySelector("#crd_longitude").innerText = this.coords.longitude;
             document.querySelector("#crd_latitude").innerText = this.coords.latitude;
 
