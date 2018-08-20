@@ -586,7 +586,7 @@
                     var p = { x: 0, y: 0, z: 0 };
 
                     // set altitude = 0 for testing
-                    point.altitude = this.cameraGpsPosition.zeroCoords.altitude;
+                    //point.altitude = this.cameraGpsPosition.zeroCoords.altitude;
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
