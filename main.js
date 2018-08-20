@@ -474,6 +474,7 @@
                 if (this.currentOrientation[1] === "secondary") {
                     adjustment -= 180;
                 }
+                document.querySelector("#test_el").innerText = adjustment;
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
@@ -509,7 +510,6 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            document.querySelector("#test_el").innerText = offset;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
