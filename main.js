@@ -474,6 +474,7 @@
                 if (this.currentOrientation[1] === "secondary") {
                     adjustment -= 180;
                 }
+                document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
             heading = heading + adjustment;
