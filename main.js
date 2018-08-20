@@ -78,15 +78,18 @@
     // browser agnostic orientation
     CompassUtils.getBrowserOrientation = function () {
         var orientation;
+        alert(0);
         if (screen.orientation && screen.orientation.type) {
+            alert(1);
             orientation = screen.orientation.type;
         } else {
+            alert(2);
             orientation = screen.orientation ||
                 screen.mozOrientation ||
                 screen.msOrientation;
         }
 
-        alert(orientation);
+        
         /*
           'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
                                     device is in 'normal' orientation
