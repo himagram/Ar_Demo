@@ -86,7 +86,6 @@
                 screen.msOrientation;
         }
 
-
         /*
           'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
                                     device is in 'normal' orientation
@@ -464,10 +463,6 @@
                 this.currentOrientation = browserOrientation.split("-");
 
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-                if (/android/i.test(userAgent)) {
-                    // do nothing
-                }
 
                 // iOS detection from: http://stackoverflow.com/a/9039885/177710
                 if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
