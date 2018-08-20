@@ -479,8 +479,6 @@
             heading = heading + adjustment;
 
             this.heading = heading;
-
-            document.querySelector("#compass_heading").innerText = heading;
         },
 
         updateRotation: function () {
@@ -510,6 +508,8 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
+            document.querySelector("#test_el").innerText = offset;
+            document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
 
