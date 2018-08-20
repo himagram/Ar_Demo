@@ -86,7 +86,7 @@
                 screen.msOrientation;
         }
 
-        
+
         /*
           'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
                                     device is in 'normal' orientation
@@ -330,7 +330,7 @@
         updatePosition: function () {
             if (this.coords.accuracy > this.data.accuracy) { return; }
 
-            if (this.zeroCoords == null) { 
+            if (this.zeroCoords == null) {
                 this.zeroCoords = this.coords;
             }
 
@@ -463,17 +463,27 @@
             if (typeof browserOrientation !== "undefined") {
                 this.currentOrientation = browserOrientation.split("-");
 
-                if (this.defaultOrientation !== this.currentOrientation[0]) {
-                    if (this.defaultOrientation === "landscape") {
-                        adjustment -= 270;
-                    } else {
-                        //adjustment -= 90;
-                    }
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+                if (/android/i.test(userAgent)) {
+                    // do nothing
                 }
 
-                if (this.currentOrientation[1] === "secondary") {
-                    adjustment -= 180;
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    if (this.defaultOrientation !== this.currentOrientation[0]) {
+                        if (this.defaultOrientation === "landscape") {
+                            adjustment -= 270;
+                        } else {
+                            adjustment -= 90;
+                        }
+                    }
+    
+                    if (this.currentOrientation[1] === "secondary") {
+                        adjustment -= 180;
+                    }
                 }
+                
                 document.querySelector("#test_el").innerText = adjustment;
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
