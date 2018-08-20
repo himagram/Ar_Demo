@@ -86,6 +86,7 @@
                 screen.msOrientation;
         }
 
+        alert(orientation);
         /*
           'portrait-primary':      for (screen width < screen height, e.g. phone, phablet, small tablet)
                                     device is in 'normal' orientation
