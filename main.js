@@ -490,19 +490,21 @@
         updateRotation: function () {
             var heading = 360 - this.heading;
 
-            var deviceOrientation = CompassUtils.getBrowserOrientation();
-            if (typeof deviceOrientation !== "undefined") {
-                var currentOrientation = deviceOrientation.split("-");
+            // var deviceOrientation = CompassUtils.getBrowserOrientation();
+            // if (typeof deviceOrientation !== "undefined") {
+            //     var currentOrientation = deviceOrientation.split("-");
 
-                if (currentOrientation[0] === "landscape") {
-                    var cameraRotation = this.el.getAttribute('rotation').y;
-                    document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
-                } else {
-                    var cameraRotation = this.el.getAttribute('rotation').x;
-                    document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
-                }
-            }
+            //     if (currentOrientation[0] === "landscape") {
+            //         var cameraRotation = this.el.getAttribute('rotation').y;
+            //         document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
+            //     } else {
+            //         var cameraRotation = this.el.getAttribute('rotation').x;
+            //         document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
+            //     }
+            // }
             var cameraRotation = this.el.getAttribute('rotation').y;
+            document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
+                + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
