@@ -496,8 +496,10 @@
 
                 if (currentOrientation[0] === "landscape") {
                     var cameraRotation = this.el.getAttribute('rotation').y;
+                    document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
                 } else {
-                    var cameraRotation = this.el.getAttribute('rotation').x + this.el.getAttribute('rotation').z;
+                    var cameraRotation = this.el.getAttribute('rotation').x;
+                    document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
                 }
             }
             //var cameraRotation = this.el.getAttribute('rotation').y;
@@ -524,7 +526,6 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
