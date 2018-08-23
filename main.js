@@ -473,12 +473,12 @@
                             adjustment -= 90;
                         }
                     }
-    
+
                     if (this.currentOrientation[1] === "secondary") {
                         adjustment -= 180;
                     }
                 }
-                
+
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
@@ -490,6 +490,16 @@
         updateRotation: function () {
             var heading = 360 - this.heading;
 
+            var deviceOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof deviceOrientation !== "undefined") {
+                var currentOrientation = deviceOrientation.split("-");
+                
+                if (currentOrientation[0] === "landscape") {
+                    var cameraRotation = this.el.getAttribute('rotation').y;
+                } else {
+                    var cameraRotation = this.el.getAttribute('rotation').x;
+                }
+            }
             var cameraRotation = this.el.getAttribute('rotation').y;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
