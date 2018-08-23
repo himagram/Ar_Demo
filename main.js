@@ -497,7 +497,7 @@
                 if (currentOrientation[0] === "landscape") {
                     var cameraRotation = this.el.getAttribute('rotation').y;
                 } else {
-                    var cameraRotation = this.el.getAttribute('rotation').x;
+                    var cameraRotation = this.el.getAttribute('rotation').x + this.el.getAttribute('rotation').z;
                 }
             }
             //var cameraRotation = this.el.getAttribute('rotation').y;
