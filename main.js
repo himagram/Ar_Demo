@@ -498,11 +498,11 @@
                     var cameraRotation = this.el.getAttribute('rotation').y;
                     document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
                 } else {
-                    var cameraRotation = THREE.Math.degToRad(this.el.getAttribute('rotation').x);
+                    var cameraRotation = this.el.getAttribute('rotation').x;
                     document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
                 }
             }
-            //var cameraRotation = this.el.getAttribute('rotation').y;
+            var cameraRotation = this.el.getAttribute('rotation').y;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
