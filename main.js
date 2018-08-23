@@ -498,8 +498,8 @@
                     var cameraRotation = this.el.getAttribute('rotation').y;
                     document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
                 } else {
-                    var cameraRotation = this.el.getAttribute('rotation').x;
-                    document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
+                    var cameraRotation = this.el.getAttribute('rotation').z;
+                    document.querySelector("#test_el").innerText = "cameraRotatioZ: " + cameraRotation;
                 }
             }
             //var cameraRotation = this.el.getAttribute('rotation').y;
