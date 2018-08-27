@@ -109,11 +109,11 @@
         */
 
 
-
+       document.querySelector("#test_el").innerText = "orientation: " + orientation;
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
-            document.querySelector("#test_el").innerText = "rotation: " + rotation;
+            
             switch (rotation) {
                 case 0:
                     // Portrait
