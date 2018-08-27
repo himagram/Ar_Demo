@@ -321,7 +321,7 @@
             // After watching position successfully, update coordinate of component
             this.coords = position.coords;
             // Update relative position in AR/VR scence
-            this.updatePosition();
+            //this.updatePosition();
         },
 
         updatePosition: function () {
