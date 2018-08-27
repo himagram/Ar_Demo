@@ -635,15 +635,15 @@
         var el = document.querySelector("#road");
 
         el.object3D.rotation.set(
-            THREE.Math.degToRad(orientation.alpha),
             THREE.Math.degToRad(0),
+            THREE.Math.degToRad(orientation.beta),
             -THREE.Math.degToRad(0)
           );
           //el.object3D.rotation.x += Math.PI;
 
         //el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
         //el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-        document.querySelector("#test_el").innerText = "2orientation.beta: " + orientation.beta + ";orientation.alpha: " + orientation.alpha + ";orientation.gamma: " + orientation.gamma;
+        document.querySelector("#test_el").innerText = "1orientation.beta: " + orientation.beta + ";orientation.alpha: " + orientation.alpha + ";orientation.gamma: " + orientation.gamma;
     });
 
 }).call(this);
