@@ -540,6 +540,7 @@
             document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + yawRotation;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
+            alert(99);
         },
 
         remove: function () {
