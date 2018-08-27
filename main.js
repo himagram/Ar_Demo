@@ -437,6 +437,7 @@
 
                 if (evt.webkitCompassAccuracy < 50) {
                     heading = evt.webkitCompassHeading;
+                    alert(0);
                 } else {
                     console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
                 }
@@ -444,6 +445,7 @@
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
                     heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    alert(1);
                 } else {
                     console.warn('evt.absolute === false');
                 }
