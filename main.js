@@ -108,8 +108,6 @@
                                     device has been turned 180deg from normal
         */
 
-
-       document.querySelector("#test_el").innerText = "orientation: " + window.orientation;
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
@@ -437,7 +435,6 @@
 
                 if (evt.webkitCompassAccuracy < 50) {
                     heading = evt.webkitCompassHeading;
-                    alert(0);
                 } else {
                     console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
                 }
@@ -445,7 +442,6 @@
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
                     heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-                    alert(1);
                 } else {
                     console.warn('evt.absolute === false');
                 }
@@ -487,7 +483,6 @@
             heading = heading + adjustment;
 
             this.heading = heading;
-            document.querySelector("#test_el").innerText = "heading: " + heading;
         },
 
         updateRotation: function () {
@@ -530,7 +525,8 @@
             //var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-
+            
+            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + yawRotation;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
