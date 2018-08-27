@@ -321,7 +321,7 @@
             // After watching position successfully, update coordinate of component
             this.coords = position.coords;
             // Update relative position in AR/VR scence
-            //this.updatePosition();
+            this.updatePosition();
         },
 
         updatePosition: function () {
@@ -377,7 +377,7 @@
         schema: {
             fixTime: {
                 type: 'int',
-                default: 100
+                default: 1000
             },
             orientationEvent: {
                 type: 'string',
@@ -538,7 +538,7 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "1";
+            document.querySelector("#test_el").innerText = "2";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
