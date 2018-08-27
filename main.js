@@ -438,19 +438,19 @@
             this.cBeta = evt.beta;
             this.cGamma = evt.gamma;
 
-            //var heading = null;
+            var heading = null;
 
             if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
                 if (evt.webkitCompassAccuracy < 50) {
-                    //heading = evt.webkitCompassHeading;
+                    heading = evt.webkitCompassHeading;
                 } else {
                     console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
                 }
 
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-                    //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
                 } else {
                     console.warn('evt.absolute === false');
                 }
@@ -489,9 +489,9 @@
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
-            //heading = heading + adjustment;
+            heading = heading + adjustment;
 
-            //this.heading = heading;
+            this.heading = heading;
         },
 
         updateRotation: function () {
