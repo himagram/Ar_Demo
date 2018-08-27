@@ -446,7 +446,7 @@
 
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
                     this.cAlpha = evt.alpha;
                     this.cBeta = evt.beta;
                     this.cGamma = evt.gamma;
@@ -488,9 +488,9 @@
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
-            heading = heading + adjustment;
+            //heading = heading + adjustment;
 
-            this.heading = heading;
+            //this.heading = heading;
         },
 
         updateRotation: function () {
@@ -629,5 +629,21 @@
             }
         }
     });
+
+    // window.addEventListener('deviceorientation', (orientation) => {
+    //     // TODO: 磁石の北と真北のズレを修正しなくていいのか確認する。
+    //     var el = document.querySelector("#camera");
+    //     document.querySelector("#test_el").innerText = "rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
+    //     // el.object3D.rotation.set(
+    //     //     orientation.beta,
+    //     //     orientation.alpha,
+    //     //     -orientation.gamma
+    //     // );
+    //       //el.object3D.rotation.x += Math.PI;
+
+    //     el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
+    //     el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+    //     document.querySelector("#test_el2").innerText = "1rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
+    // });
 
 }).call(this);
