@@ -635,8 +635,8 @@
         var el = document.querySelector("#road");
 
         el.object3D.rotation.set(
-            THREE.Math.degToRad(orientation.beta),
             THREE.Math.degToRad(orientation.alpha),
+            THREE.Math.degToRad(orientation.beta),
             -THREE.Math.degToRad(orientation.gamma)
           );
           el.object3D.rotation.x += Math.PI;
