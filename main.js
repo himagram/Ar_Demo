@@ -111,7 +111,7 @@
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
-            
+
             switch (rotation) {
                 case 0:
                     // Portrait
@@ -370,6 +370,9 @@
         heading: null,
         defaultOrientation: null,
         currentOrientation: null,
+        cAlpha: null, 
+        cBeta: null, 
+        cGamma: null,
 
         schema: {
             fixTime: {
@@ -442,6 +445,9 @@
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
                     heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    this.cAlpha = evt.alpha;
+                    this.cBeta = evt.beta;
+                    this.cGamma = evt.gamma;
                 } else {
                     console.warn('evt.absolute === false');
                 }
@@ -525,8 +531,11 @@
             //var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-            
-            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + this.lookControls.yawObject.rotation.y;
+
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+
+            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + yawRotation;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
