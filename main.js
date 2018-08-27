@@ -526,7 +526,7 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
             
-            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + yawRotation;
+            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + this.lookControls.yawObject.rotation.y;
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
