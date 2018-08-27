@@ -424,7 +424,8 @@
         },
 
         tick: function (time, timeDelta) {
-            if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+            if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
             this.lastTimestamp = time;
             //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
@@ -438,19 +439,19 @@
             this.cBeta = evt.beta;
             this.cGamma = evt.gamma;
 
-            var heading = null;
+            //var heading = null;
 
             if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
                 if (evt.webkitCompassAccuracy < 50) {
-                    heading = evt.webkitCompassHeading;
+                    //heading = evt.webkitCompassHeading;
                 } else {
                     console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
                 }
 
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
                 } else {
                     console.warn('evt.absolute === false');
                 }
@@ -489,9 +490,9 @@
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
-            heading = heading + adjustment;
+            //heading = heading + adjustment;
 
-            this.heading = heading;
+            //this.heading = heading;
         },
 
         updateRotation: function () {
@@ -537,6 +538,7 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            document.querySelector("#test_el").innerText = "1";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
