@@ -635,15 +635,15 @@
         var el = document.querySelector("#camera");
         document.querySelector("#test_el2").innerText = "rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
         el.object3D.rotation.set(
-            THREE.Math.degToRad(orientation.alpha),
             THREE.Math.degToRad(orientation.beta),
+            THREE.Math.degToRad(orientation.alpha),
             -THREE.Math.degToRad(orientation.gamma)
         );
           //el.object3D.rotation.x += Math.PI;
 
         //el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
         //el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-        document.querySelector("#test_el").innerText = "orientation.alpha: " + THREE.Math.degToRad(orientation.alpha) + ";orientation.beta: " + THREE.Math.degToRad(orientation.beta) + ";orientation.gamma: " + THREE.Math.degToRad(orientation.gamma);
+        document.querySelector("#test_el").innerText = "1orientation.alpha: " + THREE.Math.degToRad(orientation.alpha) + ";orientation.beta: " + THREE.Math.degToRad(orientation.beta) + ";orientation.gamma: " + THREE.Math.degToRad(orientation.gamma);
     });
 
 }).call(this);
