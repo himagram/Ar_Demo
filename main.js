@@ -427,7 +427,9 @@
             if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
             this.lastTimestamp = time;
-            this.updateRotation();
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            //this.updateRotation();
         },
 
         handlerOrientation: function (evt) {
@@ -492,7 +494,7 @@
         },
 
         updateRotation: function () {
-            var heading = 360 - this.heading;
+            //var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
             // if (typeof deviceOrientation !== "undefined") {
@@ -506,10 +508,10 @@
             //         document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
             //     }
             // }
-            var cameraRotation = this.el.getAttribute('rotation').y;
+            //var cameraRotation = this.el.getAttribute('rotation').y;
             // document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
             //     + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
-            var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+            //var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -527,7 +529,7 @@
             //     }
             // }
 
-            var offset = (heading - (cameraRotation - yawRotation)) % 360;
+            //var offset = (heading - (cameraRotation - yawRotation)) % 360;
             //var offset = heading + adjustment;
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
