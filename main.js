@@ -113,7 +113,7 @@
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
-
+            document.querySelector("#test_el").innerText = "rotation: " + rotation;
             switch (rotation) {
                 case 0:
                     // Portrait
@@ -503,8 +503,8 @@
             //     }
             // }
             var cameraRotation = this.el.getAttribute('rotation').y;
-            document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
-                + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
+            // document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
+            //     + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
