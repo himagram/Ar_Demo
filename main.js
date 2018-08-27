@@ -13,6 +13,7 @@
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
     var LINE_COORDS = {};
+    var i = 0;
 
     function GPSUtils() { }
 
@@ -438,10 +439,11 @@
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
             this.cGamma = evt.gamma;
-
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            
+            i = i + 1;
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "3";
+            document.querySelector("#test_el").innerText = "" + i;
 
             //var heading = null;
 
