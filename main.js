@@ -537,7 +537,6 @@
             // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
 
-            // document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation + ";yawRotation: " + yawRotation;
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
@@ -634,6 +633,7 @@
     window.addEventListener('deviceorientation', (orientation) => {
         // TODO: 磁石の北と真北のズレを修正しなくていいのか確認する。
         var el = document.querySelector("#camera");
+        document.querySelector("#test_el").innerText = "orientation.beta: " + orientation.beta + ";orientation.alpha: " + orientation.alpha + ";orientation.gamma: " + orientation.gamma;
         el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
         el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
     });
