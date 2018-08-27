@@ -633,12 +633,12 @@
     window.addEventListener('deviceorientation', (orientation) => {
         // TODO: 磁石の北と真北のズレを修正しなくていいのか確認する。
         var el = document.querySelector("#camera");
-
+        document.querySelector("#test_el2").innerText = "rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
         el.object3D.rotation.set(
             THREE.Math.degToRad(0),
             THREE.Math.degToRad(orientation.beta),
             -THREE.Math.degToRad(0)
-          );
+        );
           //el.object3D.rotation.x += Math.PI;
 
         //el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
