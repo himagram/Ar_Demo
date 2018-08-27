@@ -636,10 +636,10 @@
 
         el.object3D.rotation.set(
             THREE.Math.degToRad(orientation.alpha),
-            THREE.Math.degToRad(orientation.beta),
-            -THREE.Math.degToRad(orientation.gamma)
+            THREE.Math.degToRad(0),
+            -THREE.Math.degToRad(0)
           );
-          el.object3D.rotation.x += Math.PI;
+          //el.object3D.rotation.x += Math.PI;
 
         //el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
         //el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
