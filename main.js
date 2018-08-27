@@ -426,6 +426,7 @@
             if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
             this.lastTimestamp = time;
+            this.handlerOrientation.bind(this);
             this.updateRotation();
         },
 
