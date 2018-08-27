@@ -80,12 +80,10 @@
         var orientation;
         if (screen.orientation && screen.orientation.type) {
             orientation = screen.orientation.type;
-            alert(0);
         } else {
             orientation = screen.orientation ||
                 screen.mozOrientation ||
                 screen.msOrientation;
-                alert(1);
         }
 
         /*
@@ -111,7 +109,7 @@
         */
 
 
-       document.querySelector("#test_el").innerText = "orientation: " + screen.orientation;
+       document.querySelector("#test_el").innerText = "orientation: " + window.orientation;
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
