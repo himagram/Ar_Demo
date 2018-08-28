@@ -13,7 +13,6 @@
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
     var LINE_COORDS = {};
-    var i = 0;
 
     function GPSUtils() { }
 
@@ -424,89 +423,79 @@
                 true);
         },
 
-        // tick: function (time, timeDelta) {
-        //     // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
-        //     if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        tick: function (time, timeDelta) {
+            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+            if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
-        //     this.lastTimestamp = time;
-        //     //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-        //     // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-        //     //this.updateRotation();
-        // },
+            this.lastTimestamp = time;
+            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            this.updateRotation();
+        },
 
         handlerOrientation: function (evt) {
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
-            this.cGamma = evt.gamma; 
-            
-            i = i + 1;
-            if(typeof (evt.webkitCompassHeading) != 'undefined'){
-                document.querySelector("#test_el").innerText = "0test:" + i;
-            }
-            else{
-                // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
-                // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-                document.querySelector("#test_el").innerText = "2test:" + i;
-            }
+            this.cGamma = evt.gamma;
 
             //var heading = null;
 
-            // if (typeof (evt.webkitCompassHeading) != 'undefined') {
+            if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
-            //     if (evt.webkitCompassAccuracy < 50) {
-            //         //heading = evt.webkitCompassHeading;
-            //     } else {
-            //         console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
-            //     }
+                if (evt.webkitCompassAccuracy < 50) {
+                    //heading = evt.webkitCompassHeading;
+                } else {
+                    console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
+                }
 
-            // } else if (evt.alpha !== null) {
-            //     if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-            //         //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-            //     } else {
-            //         console.warn('evt.absolute === false');
-            //     }
-            // } else {
-            //     console.warn('evt.alpha === null');
-            // }
+            } else if (evt.alpha !== null) {
+                if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
+                    //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                } else {
+                    console.warn('evt.absolute === false');
+                }
+            } else {
+                console.warn('evt.alpha === null');
+            }
 
-            // // Adjust compass heading
-            // var adjustment = 0;
-            // if (this.defaultOrientation === "landscape") {
-            //     adjustment = -90;
-            // }
+            // Adjust compass heading
+            var adjustment = 0;
+            if (this.defaultOrientation === "landscape") {
+                adjustment = -90;
+            }
 
-            // var browserOrientation = CompassUtils.getBrowserOrientation();
+            var browserOrientation = CompassUtils.getBrowserOrientation();
 
-            // if (typeof browserOrientation !== "undefined") {
-            //     this.currentOrientation = browserOrientation.split("-");
+            if (typeof browserOrientation !== "undefined") {
+                this.currentOrientation = browserOrientation.split("-");
 
-            //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
-            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            //         if (this.defaultOrientation !== this.currentOrientation[0]) {
-            //             if (this.defaultOrientation === "landscape") {
-            //                 adjustment -= 270;
-            //             } else {
-            //                 adjustment -= 90;
-            //             }
-            //         }
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    if (this.defaultOrientation !== this.currentOrientation[0]) {
+                        if (this.defaultOrientation === "landscape") {
+                            adjustment -= 270;
+                        } else {
+                            adjustment -= 90;
+                        }
+                    }
 
-            //         if (this.currentOrientation[1] === "secondary") {
-            //             adjustment -= 180;
-            //         }
-            //     }
+                    if (this.currentOrientation[1] === "secondary") {
+                        adjustment -= 180;
+                    }
+                }
 
-            //     document.querySelector("#device_orientation").innerText = browserOrientation;
-            // }
+                document.querySelector("#device_orientation").innerText = browserOrientation;
+            }
 
             //heading = heading + adjustment;
 
             //this.heading = heading;
         },
 
-        //updateRotation: function () {
+        updateRotation: function () {
             //var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -547,14 +536,14 @@
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // document.querySelector("#test_el").innerText = "3";
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            document.querySelector("#test_el").innerText = "3";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
-        //},
+        },
 
         remove: function () {
             if (this.data.orientationEvent) {
