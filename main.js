@@ -538,18 +538,18 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "4";
+            document.querySelector("#test_el").innerText = "5";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
         },
 
-        remove: function () {
-            if (this.data.orientationEvent) {
-                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-            }
-        }
+        // remove: function () {
+        //     if (this.data.orientationEvent) {
+        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+        //     }
+        // }
     });
 
     AFRAME.registerComponent('road', {
