@@ -393,18 +393,20 @@
 
             var initSetting = this.data.orientationEvent;
 
-            this.data.orientationEvent = 'deviceorientation';
-            // if (initSetting == 'auto') {
-            //     if ('ondeviceorientationabsolute' in window) {
-            //         this.data.orientationEvent = 'deviceorientationabsolute';
-            //     } else if ('ondeviceorientation' in window) {
-            //         this.data.orientationEvent = 'deviceorientation';
-            //     } else {
-            //         this.data.orientationEvent = '';
-            //         console.error('Compass not supported');
-            //         return;
-            //     }
-            // }
+            if (initSetting == 'auto') {
+                if ('ondeviceorientationabsolute' in window) {
+                    this.data.orientationEvent = 'deviceorientationabsolute';
+                    alert('ondeviceorientationabsolute');
+                } else if ('ondeviceorientation' in window) {
+                    this.data.orientationEvent = 'deviceorientation';
+                    alert('deviceorientation');
+                } else {
+                    this.data.orientationEvent = '';
+                    console.error('Compass not supported');
+                    alert('');
+                    return;
+                }
+            }
 
             if (screen.width > screen.height) {
                 this.defaultOrientation = "landscape";
@@ -539,18 +541,18 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "6";
+            document.querySelector("#test_el").innerText = "100";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
         },
 
-        // remove: function () {
-        //     if (this.data.orientationEvent) {
-        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-        //     }
-        // }
+        remove: function () {
+            if (this.data.orientationEvent) {
+                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+            }
+        }
     });
 
     AFRAME.registerComponent('road', {
