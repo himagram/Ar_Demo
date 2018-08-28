@@ -426,21 +426,25 @@
                 true);
         },
 
-        tick: function (time, timeDelta) {
-            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
-            if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        // tick: function (time, timeDelta) {
+        //     // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        //     if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
-            this.lastTimestamp = time;
-            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            this.updateRotation();
-        },
+        //     this.lastTimestamp = time;
+        //     //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+        //     // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+        //     this.updateRotation();
+        // },
 
         handlerOrientation: function (evt) {
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
             this.cGamma = evt.gamma;
+
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            document.querySelector("#test_el").innerText = "2";
 
             //var heading = null;
 
@@ -496,9 +500,9 @@
             //heading = heading + adjustment;
 
             //this.heading = heading;
-        },
+        }
 
-        updateRotation: function () {
+        //updateRotation: function () {
             //var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -539,20 +543,20 @@
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "123";
+            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            // document.querySelector("#test_el").innerText = "123";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
-        },
+        //},
 
-        remove: function () {
-            if (this.data.orientationEvent) {
-                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-            }
-        }
+        // remove: function () {
+        //     if (this.data.orientationEvent) {
+        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+        //     }
+        // }
     });
 
     AFRAME.registerComponent('road', {
