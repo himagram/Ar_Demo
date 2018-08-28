@@ -396,14 +396,11 @@
             if (initSetting == 'auto') {
                 if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientation';
-                    alert('ondeviceorientation');
                 } else if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
-                    alert('ondeviceorientationabsolute');
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
-                    alert('');
                     return;
                 }
             }
@@ -416,14 +413,14 @@
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
 
-            // Event listener for 'compassneedscalibration'
-            // window.addEventListener(
-            //     'compassneedscalibration',
-            //     function (event) {
-            //         alert('Your compass needs calibrating! Wave your device in a figure-eight motion.');
-            //         event.preventDefault();
-            //     },
-            //     true);
+            //Event listener for 'compassneedscalibration'
+            window.addEventListener(
+                'compassneedscalibration',
+                function (event) {
+                    alert('Your compass needs calibrating! Wave your device in a figure-eight motion.');
+                    event.preventDefault();
+                },
+                true);
         },
 
         tick: function (time, timeDelta) {
@@ -556,13 +553,13 @@
             //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             //this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
             document.querySelector("#test_el").innerText = "NOK";
-        }
+        },
 
-        // remove: function () {
-        //     if (this.data.orientationEvent) {
-        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-        //     }
-        // }
+        remove: function () {
+            if (this.data.orientationEvent) {
+                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+            }
+        }
     });
 
     AFRAME.registerComponent('road', {
