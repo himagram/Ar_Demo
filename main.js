@@ -396,11 +396,14 @@
             if (initSetting == 'auto') {
                 if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientation';
+                    alert('ondeviceorientation');
                 } else if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
+                    alert('ondeviceorientationabsolute');
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
+                    alert('');
                     return;
                 }
             }
@@ -413,7 +416,7 @@
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
 
-            //Event listener for 'compassneedscalibration'
+            // Event listener for 'compassneedscalibration'
             window.addEventListener(
                 'compassneedscalibration',
                 function (event) {
@@ -423,21 +426,25 @@
                 true);
         },
 
-        tick: function (time, timeDelta) {
-            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
-            if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        // tick: function (time, timeDelta) {
+        //     // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        //     if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
-            this.lastTimestamp = time;
-            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            //this.updateRotation();
-        },
+        //     this.lastTimestamp = time;
+        //     //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+        //     // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+        //     this.updateRotation();
+        // },
 
         handlerOrientation: function (evt) {
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
             this.cGamma = evt.gamma;
+
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            document.querySelector("#test_el").innerText = "2";
 
             //var heading = null;
 
@@ -493,9 +500,9 @@
             //heading = heading + adjustment;
 
             //this.heading = heading;
-        },
+        }
 
-        updateRotation: function () {
+        //updateRotation: function () {
             //var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -543,23 +550,13 @@
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
+        //},
 
-            //var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            //var quaternion = new THREE.Quaternion();
-            //quaternion.setFromEuler(euler);
-            //quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            //this.el.object3D.quaternion.slerp(quaternion, 0.01);
-
-            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            //this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "NOT";
-        },
-
-        remove: function () {
-            if (this.data.orientationEvent) {
-                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-            }
-        }
+        // remove: function () {
+        //     if (this.data.orientationEvent) {
+        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+        //     }
+        // }
     });
 
     AFRAME.registerComponent('road', {
