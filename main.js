@@ -441,54 +441,54 @@
 
             //var heading = null;
 
-            if (typeof (evt.webkitCompassHeading) != 'undefined') {
+            // if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
-                if (evt.webkitCompassAccuracy < 50) {
-                    //heading = evt.webkitCompassHeading;
-                } else {
-                    console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
-                }
+            //     if (evt.webkitCompassAccuracy < 50) {
+            //         //heading = evt.webkitCompassHeading;
+            //     } else {
+            //         console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
+            //     }
 
-            } else if (evt.alpha !== null) {
-                if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-                    //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-                } else {
-                    console.warn('evt.absolute === false');
-                }
-            } else {
-                console.warn('evt.alpha === null');
-            }
+            // } else if (evt.alpha !== null) {
+            //     if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
+            //         //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+            //     } else {
+            //         console.warn('evt.absolute === false');
+            //     }
+            // } else {
+            //     console.warn('evt.alpha === null');
+            // }
 
-            // Adjust compass heading
-            var adjustment = 0;
-            if (this.defaultOrientation === "landscape") {
-                adjustment = -90;
-            }
+            // // Adjust compass heading
+            // var adjustment = 0;
+            // if (this.defaultOrientation === "landscape") {
+            //     adjustment = -90;
+            // }
 
-            var browserOrientation = CompassUtils.getBrowserOrientation();
+            // var browserOrientation = CompassUtils.getBrowserOrientation();
 
-            if (typeof browserOrientation !== "undefined") {
-                this.currentOrientation = browserOrientation.split("-");
+            // if (typeof browserOrientation !== "undefined") {
+            //     this.currentOrientation = browserOrientation.split("-");
 
-                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-                // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                    if (this.defaultOrientation !== this.currentOrientation[0]) {
-                        if (this.defaultOrientation === "landscape") {
-                            adjustment -= 270;
-                        } else {
-                            adjustment -= 90;
-                        }
-                    }
+            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            //         if (this.defaultOrientation !== this.currentOrientation[0]) {
+            //             if (this.defaultOrientation === "landscape") {
+            //                 adjustment -= 270;
+            //             } else {
+            //                 adjustment -= 90;
+            //             }
+            //         }
 
-                    if (this.currentOrientation[1] === "secondary") {
-                        adjustment -= 180;
-                    }
-                }
+            //         if (this.currentOrientation[1] === "secondary") {
+            //             adjustment -= 180;
+            //         }
+            //     }
 
-                document.querySelector("#device_orientation").innerText = browserOrientation;
-            }
+            //     document.querySelector("#device_orientation").innerText = browserOrientation;
+            // }
 
             //heading = heading + adjustment;
 
