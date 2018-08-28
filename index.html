@@ -112,46 +112,46 @@
         // }
 
         // Add a event listener for tracking camera's position and rotation
-        window.onload = function () {
+        // window.onload = function () {
 
-            var camera = document.getElementById('camera');
+        //     var camera = document.getElementById('camera');
 
-            camera.addEventListener('componentchanged', function (evt) {
-                switch (evt.detail.name) {
-                    case 'rotation':
-                        //console.log('camera rotation changed', evt.detail.newData);
-                        var compassRotation = camera.getAttribute('compass-rotation');
-                        var lookControls = camera.getAttribute('look-controls');
-                        document.querySelector('#camera_angle').innerText = evt.detail.newData.y;
-                        if (lookControls) {
-                            document.querySelector('#yaw_angle').innerText = THREE.Math.radToDeg(lookControls.yawObject.rotation.y);
-                        }
+        //     camera.addEventListener('componentchanged', function (evt) {
+        //         switch (evt.detail.name) {
+        //             case 'rotation':
+        //                 //console.log('camera rotation changed', evt.detail.newData);
+        //                 var compassRotation = camera.getAttribute('compass-rotation');
+        //                 var lookControls = camera.getAttribute('look-controls');
+        //                 document.querySelector('#camera_angle').innerText = evt.detail.newData.y;
+        //                 if (lookControls) {
+        //                     document.querySelector('#yaw_angle').innerText = THREE.Math.radToDeg(lookControls.yawObject.rotation.y);
+        //                 }
 
-                        if (compassRotation) {
-                            document.querySelector('#compass_heading').innerText = compassRotation.heading;
-                        }
-                        break;
-                    case 'position':
-                        //console.log('camera position changed', evt.detail.newData);
-                        var gpsPosition = camera.components['gps-position'];
-                        document.querySelector('#camera_p_x').innerText = evt.detail.newData.x;
-                        document.querySelector('#camera_p_z').innerText = evt.detail.newData.z;
+        //                 if (compassRotation) {
+        //                     document.querySelector('#compass_heading').innerText = compassRotation.heading;
+        //                 }
+        //                 break;
+        //             case 'position':
+        //                 //console.log('camera position changed', evt.detail.newData);
+        //                 var gpsPosition = camera.components['gps-position'];
+        //                 document.querySelector('#camera_p_x').innerText = evt.detail.newData.x;
+        //                 document.querySelector('#camera_p_z').innerText = evt.detail.newData.z;
 
-                        if (gpsPosition) {
-                            if (gpsPosition.coords) {
-                                document.querySelector('#crd_longitude').innerText = "" + gpsPosition.coords.longitude;
-                                document.querySelector('#crd_latitude').innerText = "" + gpsPosition.coords.latitude;
-                                document.querySelector('#crd_accuracy').innerText = "" + gpsPosition.coords.accuracy;
-                            }
-                            if (gpsPosition.zeroCoords) {
-                                document.querySelector('#zero_crd_longitude').innerText = "" + gpsPosition.zeroCoords.longitude;
-                                document.querySelector('#zero_crd_latitude').innerText = "" + gpsPosition.zeroCoords.latitude;
-                            }
-                        }
+        //                 if (gpsPosition) {
+        //                     if (gpsPosition.coords) {
+        //                         document.querySelector('#crd_longitude').innerText = "" + gpsPosition.coords.longitude;
+        //                         document.querySelector('#crd_latitude').innerText = "" + gpsPosition.coords.latitude;
+        //                         document.querySelector('#crd_accuracy').innerText = "" + gpsPosition.coords.accuracy;
+        //                     }
+        //                     if (gpsPosition.zeroCoords) {
+        //                         document.querySelector('#zero_crd_longitude').innerText = "" + gpsPosition.zeroCoords.longitude;
+        //                         document.querySelector('#zero_crd_latitude').innerText = "" + gpsPosition.zeroCoords.latitude;
+        //                     }
+        //                 }
 
-                        break;
-                }
-            });
+        //                 break;
+        //         }
+        //     });
 
             // if (window.DeviceOrientationEvent) {
             //     window.addEventListener("deviceorientation", deviceOrientationListener);
@@ -162,7 +162,7 @@
             // if('ondevicemotion' in window) {
             //      window.addEventListener('devicemotion', deviceMotionListener);
             // }
-        };
+        //};
     </script>
 </body>
 
