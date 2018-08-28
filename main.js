@@ -108,6 +108,8 @@
                                     device has been turned 180deg from normal
         */
 
+
+
         // iOS
         if (orientation === undefined) {
             var rotation = window.orientation
@@ -370,9 +372,6 @@
         heading: null,
         defaultOrientation: null,
         currentOrientation: null,
-        cAlpha: null,
-        cBeta: null,
-        cGamma: null,
 
         schema: {
             fixTime: {
@@ -394,16 +393,13 @@
             var initSetting = this.data.orientationEvent;
 
             if (initSetting == 'auto') {
-                if ('ondeviceorientation' in window) {
-                    this.data.orientationEvent = 'deviceorientation';
-                    alert('ondeviceorientation');
-                } else if ('ondeviceorientationabsolute' in window) {
+                if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
-                    alert('ondeviceorientationabsolute');
+                } else if ('ondeviceorientation' in window) {
+                    this.data.orientationEvent = 'deviceorientation';
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
-                    alert('');
                     return;
                 }
             }
@@ -426,84 +422,73 @@
                 true);
         },
 
-        // tick: function (time, timeDelta) {
-        //     // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
-        //     if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
+        tick: function (time, timeDelta) {
+            if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
-        //     this.lastTimestamp = time;
-        //     //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-        //     // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-        //     this.updateRotation();
-        // },
+            this.lastTimestamp = time;
+            this.updateRotation();
+        },
 
         handlerOrientation: function (evt) {
 
-            this.cAlpha = evt.alpha;
-            this.cBeta = evt.beta;
-            this.cGamma = evt.gamma;
+            var heading = null;
 
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "2";
+            if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
-            //var heading = null;
+                if (evt.webkitCompassAccuracy < 50) {
+                    heading = evt.webkitCompassHeading;
+                } else {
+                    console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
+                }
 
-            // if (typeof (evt.webkitCompassHeading) != 'undefined') {
+            } else if (evt.alpha !== null) {
+                if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
+                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                } else {
+                    console.warn('evt.absolute === false');
+                }
+            } else {
+                console.warn('evt.alpha === null');
+            }
 
-            //     if (evt.webkitCompassAccuracy < 50) {
-            //         //heading = evt.webkitCompassHeading;
-            //     } else {
-            //         console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
-            //     }
+            // Adjust compass heading
+            var adjustment = 0;
+            if (this.defaultOrientation === "landscape") {
+                adjustment = -90;
+            }
 
-            // } else if (evt.alpha !== null) {
-            //     if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-            //         //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-            //     } else {
-            //         console.warn('evt.absolute === false');
-            //     }
-            // } else {
-            //     console.warn('evt.alpha === null');
-            // }
+            var browserOrientation = CompassUtils.getBrowserOrientation();
 
-            // // Adjust compass heading
-            // var adjustment = 0;
-            // if (this.defaultOrientation === "landscape") {
-            //     adjustment = -90;
-            // }
+            if (typeof browserOrientation !== "undefined") {
+                this.currentOrientation = browserOrientation.split("-");
 
-            // var browserOrientation = CompassUtils.getBrowserOrientation();
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            // if (typeof browserOrientation !== "undefined") {
-            //     this.currentOrientation = browserOrientation.split("-");
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    if (this.defaultOrientation !== this.currentOrientation[0]) {
+                        if (this.defaultOrientation === "landscape") {
+                            adjustment -= 270;
+                        } else {
+                            adjustment -= 90;
+                        }
+                    }
 
-            //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                    if (this.currentOrientation[1] === "secondary") {
+                        adjustment -= 180;
+                    }
+                }
 
-            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
-            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            //         if (this.defaultOrientation !== this.currentOrientation[0]) {
-            //             if (this.defaultOrientation === "landscape") {
-            //                 adjustment -= 270;
-            //             } else {
-            //                 adjustment -= 90;
-            //             }
-            //         }
+                document.querySelector("#device_orientation").innerText = browserOrientation;
+            }
 
-            //         if (this.currentOrientation[1] === "secondary") {
-            //             adjustment -= 180;
-            //         }
-            //     }
+            heading = heading + adjustment;
 
-            //     document.querySelector("#device_orientation").innerText = browserOrientation;
-            // }
+            this.heading = heading;
+        },
 
-            //heading = heading + adjustment;
-
-            //this.heading = heading;
-        }
-
-        //updateRotation: function () {
-            //var heading = 360 - this.heading;
+        updateRotation: function () {
+            var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
             // if (typeof deviceOrientation !== "undefined") {
@@ -517,10 +502,10 @@
             //         document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
             //     }
             // }
-            //var cameraRotation = this.el.getAttribute('rotation').y;
-            // document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
-            //     + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
-            //var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+            var cameraRotation = this.el.getAttribute('rotation').y;
+            document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
+                + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
+            var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -538,25 +523,20 @@
             //     }
             // }
 
-            //var offset = (heading - (cameraRotation - yawRotation)) % 360;
+            var offset = (heading - (cameraRotation - yawRotation)) % 360;
             //var offset = heading + adjustment;
 
-            //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // document.querySelector("#test_el").innerText = "123";
+            document.querySelector("#compass_heading").innerText = heading;
+            document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
+        },
 
-            // document.querySelector("#compass_heading").innerText = heading;
-            // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
-            //alert(99);
-        //},
-
-        // remove: function () {
-        //     if (this.data.orientationEvent) {
-        //         window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
-        //     }
-        // }
+        remove: function () {
+            if (this.data.orientationEvent) {
+                window.removeEventListener(this.data.orientationEvent, this.handlerOrientation, false);
+            }
+        }
     });
 
     AFRAME.registerComponent('road', {
@@ -639,21 +619,5 @@
             }
         }
     });
-
-    // window.addEventListener('deviceorientation', (orientation) => {
-    //     // TODO: 磁石の北と真北のズレを修正しなくていいのか確認する。
-    //     var el = document.querySelector("#camera");
-    //     document.querySelector("#test_el").innerText = "rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
-    //     // el.object3D.rotation.set(
-    //     //     orientation.beta,
-    //     //     orientation.alpha,
-    //     //     -orientation.gamma
-    //     // );
-    //       //el.object3D.rotation.x += Math.PI;
-
-    //     el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
-    //     el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-    //     document.querySelector("#test_el2").innerText = "1rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
-    // });
 
 }).call(this);
