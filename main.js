@@ -417,13 +417,13 @@
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
 
             // Event listener for 'compassneedscalibration'
-            window.addEventListener(
-                'compassneedscalibration',
-                function (event) {
-                    alert('Your compass needs calibrating! Wave your device in a figure-eight motion.');
-                    event.preventDefault();
-                },
-                true);
+            // window.addEventListener(
+            //     'compassneedscalibration',
+            //     function (event) {
+            //         alert('Your compass needs calibrating! Wave your device in a figure-eight motion.');
+            //         event.preventDefault();
+            //     },
+            //     true);
         },
 
         tick: function (time, timeDelta) {
