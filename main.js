@@ -544,19 +544,19 @@
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
 
-            // var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            // var quaternion = new THREE.Quaternion();
-            // quaternion.setFromEuler(euler);
+            var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
+            var quaternion = new THREE.Quaternion();
+            quaternion.setFromEuler(euler);
             // //quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
             // var qm = new THREE.Quaternion();
             // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
-            // this.el.object3D.quaternion = qm;
-            // this.el.object3D.quaternion.normalize();
-
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            this.el.object3D.quaternion = this.el.object3D.quaternion.slerp(quaternion, 0.5);
             this.el.object3D.quaternion.normalize();
-            document.querySelector("#test_el").innerText = "OK!";
+
+            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            // this.el.object3D.quaternion.normalize();
+            document.querySelector("#test_el").innerText = "OK:(";
         },
 
         remove: function () {
