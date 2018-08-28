@@ -394,12 +394,12 @@
             var initSetting = this.data.orientationEvent;
 
             if (initSetting == 'auto') {
-                if ('ondeviceorientationabsolute' in window) {
+                if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
-                    alert('ondeviceorientationabsolute');
-                } else if ('ondeviceorientation' in window) {
+                    alert('ondeviceorientation');
+                } else if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientation';
-                    alert('deviceorientation');
+                    alert('ondeviceorientationabsolute');
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
@@ -541,7 +541,7 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "100";
+            document.querySelector("#test_el").innerText = "0";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
