@@ -438,12 +438,12 @@
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
-            this.cGamma = evt.gamma;
+            this.cGamma = evt.gamma; 
             
             i = i + 1;
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "test:" + i;
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(1), 0, 0, Math.sqrt(1)));
+            document.querySelector("#test_el").innerText = "0test:" + i;
 
             //var heading = null;
 
@@ -501,7 +501,7 @@
             //this.heading = heading;
         },
 
-        updateRotation: function () {
+        //updateRotation: function () {
             //var heading = 360 - this.heading;
 
             // var deviceOrientation = CompassUtils.getBrowserOrientation();
@@ -549,7 +549,7 @@
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
-        },
+        //},
 
         remove: function () {
             if (this.data.orientationEvent) {
