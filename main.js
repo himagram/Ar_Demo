@@ -441,9 +441,14 @@
             this.cGamma = evt.gamma; 
             
             i = i + 1;
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(1), 0, 0, Math.sqrt(1)));
-            document.querySelector("#test_el").innerText = "0test:" + i;
+            if(typeof (evt.webkitCompassHeading) != 'undefined'){
+                document.querySelector("#test_el").innerText = "0test:" + i;
+            }
+            else{
+                // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
+                // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(1), 0, 0, Math.sqrt(1)));
+                document.querySelector("#test_el").innerText = "1test:" + i;
+            }
 
             //var heading = null;
 
