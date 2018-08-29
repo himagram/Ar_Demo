@@ -486,10 +486,8 @@
             heading = heading + adjustment;
 
             this.heading = heading;
-        },
 
-        updateRotation: function () {
-            var heading = 360 - this.heading;
+            heading = 360 - this.heading;
 
             var cameraRotation = this.el.getAttribute('rotation').y;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
@@ -519,11 +517,49 @@
             var camZ = this.el.getAttribute('rotation').z;
             i= i +1;
             this.el.setAttribute('rotation', { x: camX, y: i, z: camZ });
-            document.querySelector("#test_el").innerText = "y: " + i;
+            document.querySelector("#test_el").innerText = "dy: " + i;
             document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
 
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
+        },
+
+        updateRotation: function () {
+            // var heading = 360 - this.heading;
+
+            // var cameraRotation = this.el.getAttribute('rotation').y;
+            // var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+
+            // // var adjustment = 0
+            // // var deviceOrientation = CompassUtils.getBrowserOrientation();
+            // // if (typeof deviceOrientation !== "undefined") {
+            // //     var currentOrientation = deviceOrientation.split("-");
+
+            // //     if (currentOrientation[0] === "landscape") {
+            // //         adjustment -= 270; 
+            // //     } else {
+            // //         adjustment -= 90;
+            // //     }
+
+            // //     if (currentOrientation[1] === "secondary") {
+            // //       adjustment -= 180;
+            // //     }
+            // // }
+
+            // var offset = (heading - (cameraRotation - yawRotation)) % 360;
+            // //var offset = heading + adjustment;
+
+            // this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+
+            // var camX = this.el.getAttribute('rotation').x;
+            // var camZ = this.el.getAttribute('rotation').z;
+            // i= i +1;
+            // this.el.setAttribute('rotation', { x: camX, y: i, z: camZ });
+            // document.querySelector("#test_el").innerText = "y: " + i;
+            // document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
+
+            // document.querySelector("#compass_heading").innerText = heading;
+            // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
 
         remove: function () {
