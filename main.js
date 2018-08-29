@@ -514,7 +514,11 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            document.querySelector("#test_el").innerText = "Ry: " + this.lookControls.yawObject.rotation.y;
+            var camX = this.el.getAttribute('rotation').x;
+            var camZ = this.el.getAttribute('rotation').z;
+
+            this.el.setAttribute('rotation', { x: camX, y: this.lookControls.yawObject.rotation.y, z: camZ });
+            document.querySelector("#test_el").innerText = "Zy: " + this.lookControls.yawObject.rotation.y;
             document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
 
             document.querySelector("#compass_heading").innerText = heading;
