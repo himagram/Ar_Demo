@@ -441,17 +441,19 @@
             this.cGamma = evt.gamma;
 
             i = i + 1;
-            document.querySelector("#test_el").innerText = i;
-            //var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma)).normalize();
-            var _quaternion = new THREE.Quaternion();
-            //_quaternion.setFromEuler(euler);
-            _quaternion.setFromAxisAngle(axis, Math.PI / 2);
-            _quaternion.normalize();
-            alert(this.el.object3D.quaternion.angleTo(_quaternion));
+            document.querySelector("#test_el").innerText = "tst:" + i;
+            var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
+            var axis = new THREE.Vector3(0,0,1);
+            var _quaternion0 = new THREE.Quaternion();
+            var _quaternion1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
+            _quaternion0.setFromAxisAngle(axis, Math.PI / 2);
+            
             // var qm = new THREE.Quaternion();
             // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
-            this.el.object3D.quaternion.multiply(_quaternion);
+            this.el.object3D.quaternion.setFromEuler( euler );
+            this.el.object3D.quaternion.multiply( _quaternion1 );
+            this.el.object3D.quaternion.multiply( _quaternion0 );
+            
             
             // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
