@@ -388,6 +388,7 @@
 
         init: function () {
 
+            console.log(this.el.object3D.quaternion);
             if (typeof (this.el.components['look-controls']) == 'undefined') { return; }
 
             this.lookControls = this.el.components['look-controls'];
@@ -422,8 +423,6 @@
                     event.preventDefault();
                 },
                 true);
-
-            console.log(this.el.object3D.quaternion);
         },
 
         tick: function (time, timeDelta) {
@@ -450,105 +449,106 @@
             // this.el.object3D.quaternion.normalize();
             
 
-            //var heading = null;
+            var heading = null;
 
-            // if (typeof (evt.webkitCompassHeading) != 'undefined') {
+            if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
-            //     if (evt.webkitCompassAccuracy < 50) {
-            //         //heading = evt.webkitCompassHeading;
-            //     } else {
-            //         console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
-            //     }
+                if (evt.webkitCompassAccuracy < 50) {
+                    heading = evt.webkitCompassHeading;
+                } else {
+                    console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
+                }
 
-            // } else if (evt.alpha !== null) {
-            //     if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-            //         //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-            //     } else {
-            //         console.warn('evt.absolute === false');
-            //     }
-            // } else {
-            //     console.warn('evt.alpha === null');
-            // }
+            } else if (evt.alpha !== null) {
+                if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
+                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                } else {
+                    console.warn('evt.absolute === false');
+                }
+            } else {
+                console.warn('evt.alpha === null');
+            }
 
-            // // Adjust compass heading
-            // var adjustment = 0;
-            // if (this.defaultOrientation === "landscape") {
-            //     adjustment = -90;
-            // }
+            // Adjust compass heading
+            var adjustment = 0;
+            if (this.defaultOrientation === "landscape") {
+                adjustment = -90;
+            }
 
-            // var browserOrientation = CompassUtils.getBrowserOrientation();
+            var browserOrientation = CompassUtils.getBrowserOrientation();
 
-            // if (typeof browserOrientation !== "undefined") {
-            //     this.currentOrientation = browserOrientation.split("-");
+            if (typeof browserOrientation !== "undefined") {
+                this.currentOrientation = browserOrientation.split("-");
 
-            //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
-            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            //         if (this.defaultOrientation !== this.currentOrientation[0]) {
-            //             if (this.defaultOrientation === "landscape") {
-            //                 adjustment -= 270;
-            //             } else {
-            //                 adjustment -= 90;
-            //             }
-            //         }
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    if (this.defaultOrientation !== this.currentOrientation[0]) {
+                        if (this.defaultOrientation === "landscape") {
+                            adjustment -= 270;
+                        } else {
+                            adjustment -= 90;
+                        }
+                    }
 
-            //         if (this.currentOrientation[1] === "secondary") {
-            //             adjustment -= 180;
-            //         }
-            //     }
+                    if (this.currentOrientation[1] === "secondary") {
+                        adjustment -= 180;
+                    }
+                }
 
-            //     document.querySelector("#device_orientation").innerText = browserOrientation;
-            // }
+                document.querySelector("#device_orientation").innerText = browserOrientation;
+            }
 
-            //heading = heading + adjustment;
+            heading = heading + adjustment;
 
-            //this.heading = heading;
+            this.heading = heading;
         },
 
         updateRotation: function () {
-            //var heading = 360 - this.heading;
+            var heading = 360 - this.heading;
 
-            // var deviceOrientation = CompassUtils.getBrowserOrientation();
-            // if (typeof deviceOrientation !== "undefined") {
-            //     var currentOrientation = deviceOrientation.split("-");
+            var deviceOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof deviceOrientation !== "undefined") {
+                var currentOrientation = deviceOrientation.split("-");
 
-            //     if (currentOrientation[0] === "landscape") {
-            //         var cameraRotation = this.el.getAttribute('rotation').y;
-            //         document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
-            //     } else {
-            //         var cameraRotation = this.el.getAttribute('rotation').x;
-            //         document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
-            //     }
-            // }
-            //var cameraRotation = this.el.getAttribute('rotation').y;
-            // document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
-            //     + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
-            //var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+                if (currentOrientation[0] === "landscape") {
+                    var cameraRotation = this.el.getAttribute('rotation').y;
+                    document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
+                } else {
+                    var cameraRotation = this.el.getAttribute('rotation').x;
+                    document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
+                }
+            }
+            var cameraRotation = this.el.getAttribute('rotation').y;
+            document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
+                + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
+            var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
-            // var adjustment = 0
-            // var deviceOrientation = CompassUtils.getBrowserOrientation();
-            // if (typeof deviceOrientation !== "undefined") {
-            //     var currentOrientation = deviceOrientation.split("-");
+            var adjustment = 0
+            var deviceOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof deviceOrientation !== "undefined") {
+                var currentOrientation = deviceOrientation.split("-");
 
-            //     if (currentOrientation[0] === "landscape") {
-            //         adjustment -= 270; 
-            //     } else {
-            //         adjustment -= 90;
-            //     }
+                if (currentOrientation[0] === "landscape") {
+                    adjustment -= 270; 
+                } else {
+                    adjustment -= 90;
+                }
 
-            //     if (currentOrientation[1] === "secondary") {
-            //       adjustment -= 180;
-            //     }
-            // }
+                if (currentOrientation[1] === "secondary") {
+                  adjustment -= 180;
+                }
+            }
 
-            //var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            //var offset = heading + adjustment;
+            var offset = (heading - (cameraRotation - yawRotation)) % 360;
+            var offset = heading + adjustment;
 
-            //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+            document.querySelector("#test_el").innerText = "offset: " + offset;
 
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
             
             // document.querySelector("#test_el").innerText = "123";
 
