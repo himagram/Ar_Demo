@@ -478,8 +478,7 @@
                         adjustment -= 180;
                     }
                 }
-                
-                document.querySelector("#test_el").innerText = "adjustment: " + adjustment;
+
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
@@ -514,6 +513,9 @@
             //var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
+
+            document.querySelector("#test_el").innerText = "y: " + THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
+            document.querySelector("#test_el2").innerText = "x: " + THREE.Math.radToDeg(this.lookControls.yawObject.rotation.x) + "\n" + "z: " + THREE.Math.radToDeg(this.lookControls.yawObject.rotation.x);
 
             document.querySelector("#compass_heading").innerText = heading;
             document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
