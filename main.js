@@ -542,7 +542,7 @@
             }
 
             var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            var offset = heading + adjustment;
+            // var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
             document.querySelector("#test_el").innerText = "offset: " + offset;
