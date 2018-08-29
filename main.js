@@ -373,6 +373,9 @@
         heading: null,
         defaultOrientation: null,
         currentOrientation: null,
+        tAlpha: null,
+        tBeta: null,
+        tGamma: null,
 
         schema: {
             fixTime: {
@@ -445,6 +448,9 @@
             } else if (evt.alpha !== null) {
                 if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
                     heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                    tAlpha = evt.alpha;
+                    tBeta = evt.beta;
+                    tGamma = evt.gamma;
                 } else {
                     console.warn('evt.absolute === false');
                 }
@@ -474,7 +480,7 @@
                             adjustment -= 90;
                         }
                     }
-    
+
                     if (this.currentOrientation[1] === "secondary") {
                         adjustment -= 180;
                     }
@@ -487,41 +493,6 @@
 
             this.heading = heading;
 
-            heading = 360 - this.heading;
-
-            var cameraRotation = this.el.getAttribute('rotation').y;
-            var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
-
-            // var adjustment = 0
-            // var deviceOrientation = CompassUtils.getBrowserOrientation();
-            // if (typeof deviceOrientation !== "undefined") {
-            //     var currentOrientation = deviceOrientation.split("-");
-
-            //     if (currentOrientation[0] === "landscape") {
-            //         adjustment -= 270; 
-            //     } else {
-            //         adjustment -= 90;
-            //     }
-
-            //     if (currentOrientation[1] === "secondary") {
-            //       adjustment -= 180;
-            //     }
-            // }
-
-            var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            //var offset = heading + adjustment;
-
-            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-
-            var camX = this.el.getAttribute('rotation').x;
-            var camZ = this.el.getAttribute('rotation').z;
-            i= i +1;
-            this.el.setAttribute('rotation', { x: camX, y: i, z: camZ });
-            document.querySelector("#test_el").innerText = "dy: " + i;
-            document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
-
-            document.querySelector("#compass_heading").innerText = heading;
-            document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
 
         updateRotation: function () {
@@ -560,6 +531,9 @@
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
+
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(tBeta), THREE.Math.degToRad(tAlpha), -THREE.Math.degToRad(tGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
         },
 
         remove: function () {
