@@ -422,6 +422,8 @@
                     event.preventDefault();
                 },
                 true);
+
+            console.log(this.el.object3D.quaternion);
         },
 
         tick: function (time, timeDelta) {
@@ -545,26 +547,27 @@
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
+            this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            
             // document.querySelector("#test_el").innerText = "123";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
-            i = i + 1;
-            document.querySelector("#test_el").innerText = "tsst:" + i;
-            var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            var axis = new THREE.Vector3(0,0,1);
-            var _quaternion0 = new THREE.Quaternion();
-            var _quaternion1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
-            _quaternion0.setFromAxisAngle(axis, Math.PI / 2);
+            // i = i + 1;
+            // document.querySelector("#test_el").innerText = "tsst:" + i;
+            // var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
+            // var axis = new THREE.Vector3(0,0,1);
+            // var _quaternion0 = new THREE.Quaternion();
+            // var _quaternion1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
+            // _quaternion0.setFromAxisAngle(axis, Math.PI / 2);
             
-            // var qm = new THREE.Quaternion();
-            // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
-            this.el.object3D.quaternion.setFromEuler( euler );
-            this.el.object3D.quaternion.multiply( _quaternion1 );
-            this.el.object3D.quaternion.multiply( _quaternion0 );
+            // // var qm = new THREE.Quaternion();
+            // // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
+            // this.el.object3D.quaternion.setFromEuler( euler );
+            // this.el.object3D.quaternion.multiply( _quaternion1 );
+            // this.el.object3D.quaternion.multiply( _quaternion0 );
             
         },
 
