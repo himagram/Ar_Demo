@@ -13,6 +13,7 @@
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
     var LINE_COORDS = {};
+    var i = 0;
 
     function GPSUtils() { }
 
