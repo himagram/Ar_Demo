@@ -13,7 +13,6 @@
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
     var LINE_COORDS = {};
-    var i = 0;
 
     function GPSUtils() { }
 
@@ -108,6 +107,8 @@
                                   for (screen width > screen height)
                                     device has been turned 180deg from normal
         */
+
+
 
         // iOS
         if (orientation === undefined) {
@@ -371,9 +372,6 @@
         heading: null,
         defaultOrientation: null,
         currentOrientation: null,
-        cAlpha: null,
-        cBeta: null,
-        cGamma: null,
 
         schema: {
             fixTime: {
@@ -388,7 +386,6 @@
 
         init: function () {
 
-            console.log(this.el.object3D.quaternion);
             if (typeof (this.el.components['look-controls']) == 'undefined') { return; }
 
             this.lookControls = this.el.components['look-controls'];
@@ -396,10 +393,10 @@
             var initSetting = this.data.orientationEvent;
 
             if (initSetting == 'auto') {
-                if ('ondeviceorientation' in window) {
-                    this.data.orientationEvent = 'deviceorientation';
-                } else if ('ondeviceorientationabsolute' in window) {
+                if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
+                } else if ('ondeviceorientation' in window) {
+                    this.data.orientationEvent = 'deviceorientation';
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
@@ -415,7 +412,7 @@
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
 
-            //Event listener for 'compassneedscalibration'
+            // Event listener for 'compassneedscalibration'
             window.addEventListener(
                 'compassneedscalibration',
                 function (event) {
@@ -426,28 +423,13 @@
         },
 
         tick: function (time, timeDelta) {
-            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
-            if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
+            if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
             this.lastTimestamp = time;
-            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
             this.updateRotation();
         },
 
         handlerOrientation: function (evt) {
-
-            this.cAlpha = evt.alpha;
-            this.cBeta = evt.beta;
-            this.cGamma = evt.gamma;
-
-            
-            
-            
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // this.el.object3D.quaternion.normalize();
-            
 
             var heading = null;
 
@@ -491,12 +473,13 @@
                             adjustment -= 90;
                         }
                     }
-
+    
                     if (this.currentOrientation[1] === "secondary") {
                         adjustment -= 180;
                     }
                 }
-
+                
+                document.querySelector("#test_el").innerText = "adjustment: " + adjustment;
                 document.querySelector("#device_orientation").innerText = browserOrientation;
             }
 
@@ -508,21 +491,7 @@
         updateRotation: function () {
             var heading = 360 - this.heading;
 
-            var deviceOrientation = CompassUtils.getBrowserOrientation();
-            if (typeof deviceOrientation !== "undefined") {
-                var currentOrientation = deviceOrientation.split("-");
-
-                if (currentOrientation[0] === "landscape") {
-                    var cameraRotation = this.el.getAttribute('rotation').y;
-                    document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
-                } else {
-                    var cameraRotation = this.el.getAttribute('rotation').x;
-                    document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
-                }
-            }
             var cameraRotation = this.el.getAttribute('rotation').y;
-            document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
-                + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
             // var adjustment = 0
@@ -542,33 +511,12 @@
             // }
 
             var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            // var offset = heading + adjustment;
+            //var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-            document.querySelector("#test_el").innerText = "offset: " + offset;
 
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            
-            // document.querySelector("#test_el").innerText = "123";
-
-            // document.querySelector("#compass_heading").innerText = heading;
-            // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
-            //alert(99);
-            // i = i + 1;
-            // document.querySelector("#test_el").innerText = "tsst:" + i;
-            // var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            // var axis = new THREE.Vector3(0,0,1);
-            // var _quaternion0 = new THREE.Quaternion();
-            // var _quaternion1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
-            // _quaternion0.setFromAxisAngle(axis, Math.PI / 2);
-            
-            // // var qm = new THREE.Quaternion();
-            // // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
-            // this.el.object3D.quaternion.setFromEuler( euler );
-            // this.el.object3D.quaternion.multiply( _quaternion1 );
-            // this.el.object3D.quaternion.multiply( _quaternion0 );
-            
+            document.querySelector("#compass_heading").innerText = heading;
+            document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
         },
 
         remove: function () {
@@ -602,6 +550,7 @@
             { latitude: 21.0464312, longitude: 105.795600, altitude: 0 },
             { latitude: 21.046138, longitude: 105.795292, altitude: 20 },
             { latitude: 21.046629, longitude: 105.794876, altitude: 10 },
+            { latitude: 21.046146, longitude: 105.794836, altitude: 15 },
             { latitude: 21.0464312, longitude: 105.794695, altitude: 0 }
         ],
 
@@ -658,21 +607,5 @@
             }
         }
     });
-
-    // window.addEventListener('deviceorientation', (orientation) => {
-    //     // TODO: 磁石の北と真北のズレを修正しなくていいのか確認する。
-    //     var el = document.querySelector("#camera");
-    //     document.querySelector("#test_el").innerText = "rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
-    //     // el.object3D.rotation.set(
-    //     //     orientation.beta,
-    //     //     orientation.alpha,
-    //     //     -orientation.gamma
-    //     // );
-    //       //el.object3D.rotation.x += Math.PI;
-
-    //     el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(orientation.beta), THREE.Math.degToRad(orientation.alpha), -THREE.Math.degToRad(orientation.gamma), 'YXZ'));
-    //     el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-    //     document.querySelector("#test_el2").innerText = "1rotationX: " + el.getAttribute('rotation').x + ";rotationY: " + el.getAttribute('rotation').y + ";rotationZ: " + el.getAttribute('rotation').z;
-    // });
 
 }).call(this);
