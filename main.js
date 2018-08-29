@@ -548,6 +548,7 @@
             var _quaternion = new THREE.Quaternion();
             _quaternion.setFromEuler(euler);
             _quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
+            _quaternion.normalize();
             // var qm = new THREE.Quaternion();
             // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
             this.el.object3D.quaternion.slerp(_quaternion, 0.5);
