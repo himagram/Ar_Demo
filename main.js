@@ -514,7 +514,7 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            document.querySelector("#test_el").innerText = "Ry: " + this.el.getAttribute('rotation').y;
+            document.querySelector("#test_el").innerText = "Ry: " + this.lookControls.yawObject.rotation.y;
             document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
 
             document.querySelector("#compass_heading").innerText = heading;
