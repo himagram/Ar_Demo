@@ -517,8 +517,8 @@
             var camX = this.el.getAttribute('rotation').x;
             var camZ = this.el.getAttribute('rotation').z;
 
-            this.el.setAttribute('rotation', { x: camX, y: this.lookControls.yawObject.rotation.y, z: camZ });
-            document.querySelector("#test_el").innerText = "Zy: " + this.lookControls.yawObject.rotation.y;
+            this.el.setAttribute('rotation', { x: camX, y: offset, z: camZ });
+            document.querySelector("#test_el").innerText = "CZy: " + this.lookControls.yawObject.rotation.y;
             document.querySelector("#test_el2").innerText = "x: " + this.el.getAttribute('rotation').x + "\n" + "z: " + this.el.getAttribute('rotation').z;
 
             document.querySelector("#compass_heading").innerText = heading;
