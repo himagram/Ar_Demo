@@ -556,6 +556,7 @@
             }
             
             document.querySelector("#test_el").innerText = "2: " + worldAxis.angleTo( axis );
+            document.querySelector("#test_el2").innerText = "x: " + worldAxis.x + "\nY:" + worldAxis.y + "\nZ:" + worldAxis.z;
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // var cameraQuaternion = this.el.object3D.quaternion;
             this.lookControls.yawObject.rotation.y = worldAxis.angleTo( axis );
