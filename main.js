@@ -556,7 +556,7 @@
             // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
             cameraQuaternion.copy(oQuaternion);
             document.querySelector("#test_el").innerText = "cameraX:" + cameraQuaternion.x + "\ncameraY:" + cameraQuaternion.y + "\ncameraZ:" + cameraQuaternion.z + "\ncameraW:" + cameraQuaternion.w;
-            document.querySelector("#test_el").innerText = "quaternionX:" + oQuaternion.x + "\nquaternionY:" + oQuaternion.y + "\nquaternionZ:" + oQuaternion.z + "\nquaternionW:" + oQuaternion.w;
+            document.querySelector("#test_el2").innerText = "quaternionX:" + oQuaternion.x + "\nquaternionY:" + oQuaternion.y + "\nquaternionZ:" + oQuaternion.z + "\nquaternionW:" + oQuaternion.w;
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
