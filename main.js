@@ -550,13 +550,17 @@
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
+
+            var hd = CompassUtils.getCompassHeading(this.cAlpha, this.cBeta, this.cGamma);
+            var cameraRotation = this.el.getAttribute('rotation').y;
+
+            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma)).normalize();
             //if(worldAxis == null){
-                worldAxis = this.el.object3D.getWorldDirection();
+                worldAxis = this.el.object3D.getWorldDirection().normalize();
             //}
             
-            document.querySelector("#test_el").innerText = "22: " + worldAxis.angleTo( axis );
-            document.querySelector("#test_el2").innerText = "x: " + worldAxis.x + "\nY:" + worldAxis.y + "\nZ:" + worldAxis.z;
+            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation;
+            document.querySelector("#test_el2").innerText = "heading: " + hd;
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // var cameraQuaternion = this.el.object3D.quaternion;
             i = i + 1;
