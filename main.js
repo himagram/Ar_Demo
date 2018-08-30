@@ -567,8 +567,8 @@
 
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // var cameraQuaternion = this.el.object3D.quaternion;
-            i = i + 1;
-            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(i);
+            
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(cameraRotation);
 
             // if(_quaternion == null){
             //     _quaternion = new THREE.Quaternion();
