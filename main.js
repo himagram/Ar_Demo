@@ -554,7 +554,7 @@
 
             var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
             
-            document.querySelector("#test_el").innerText = "1: " + worldAxis.angleTo( axis );
+            document.querySelector("#test_el").innerText = "1: " + this.worldAxis.angleTo( axis );
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             var cameraQuaternion = this.el.object3D.quaternion;
             this.lookControls.yawObject.rotation.y = this.worldAxis.angleTo( axis );
