@@ -547,12 +547,12 @@
             //var offset = heading + adjustment;
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-
-            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
+            i = i + 1;
+            var axis = new THREE.Vector3(THREE.Math.degToRad(0), THREE.Math.degToRad(i), -THREE.Math.degToRad(0));
             this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "43";
+            document.querySelector("#test_el").innerText = "32";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
