@@ -561,14 +561,15 @@
 
             var newEuler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ')
 
-            //var eulerRotation = cameraRotation.rotation;
-            document.querySelector("#test_el").innerText = "cameraRotation: " + cameraRotation;
-            document.querySelector("#test_el2").innerText = "\nNewX: " + newEuler.x + "\nNewY: " + newEuler.y + "\nNewZ: " + newEuler.z;
+            var eulerRotation = this.el.object3D.rotation;
+            document.querySelector("#test_el").innerText = "cameraRotation: " + (hd - cameraRotation);
+            document.querySelector("#test_el2").innerText = "eulerX: " + eulerRotation.x + "\neulerY: " + eulerRotation.y + "\neulerZ: " + eulerRotation.z
+                + "\nNewX: " + newEuler.x + "\nNewY: " + newEuler.y + "\nNewZ: " + newEuler.z;
 
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // var cameraQuaternion = this.el.object3D.quaternion;
-            
-            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(hd - cameraRotation);
+            i = i + 1;
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(i);
 
             // if(_quaternion == null){
             //     _quaternion = new THREE.Quaternion();
