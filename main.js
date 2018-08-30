@@ -549,14 +549,12 @@
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-
-
             var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
             var worldAxis = this.el.object3D.getWorldDirection();
-            document.querySelector("#test_el").innerText = worldAxis.angleTo( axis );;
+            document.querySelector("#test_el").innerText = worldAxis.angleTo( axis );
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             var cameraQuaternion = this.el.object3D.quaternion;
-            axis.applyQuaternion( cameraQuaternion );
+            this.lookControls.yawObject.rotation.y = worldAxis.angleTo( axis );
 
             // if(_quaternion == null){
             //     _quaternion = new THREE.Quaternion();
