@@ -555,11 +555,12 @@
                 worldAxis = this.el.object3D.getWorldDirection();
             //}
             
-            document.querySelector("#test_el").innerText = "1: " + worldAxis.angleTo( axis );
+            document.querySelector("#test_el").innerText = "22: " + worldAxis.angleTo( axis );
             document.querySelector("#test_el2").innerText = "x: " + worldAxis.x + "\nY:" + worldAxis.y + "\nZ:" + worldAxis.z;
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
             // var cameraQuaternion = this.el.object3D.quaternion;
-            this.lookControls.yawObject.rotation.y = worldAxis.angleTo( axis );
+            i = i + 1;
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(i);
 
             // if(_quaternion == null){
             //     _quaternion = new THREE.Quaternion();
