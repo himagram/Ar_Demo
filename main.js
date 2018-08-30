@@ -608,7 +608,7 @@
         init: function () {
             if (this.deferredInit()) { return; }
 
-            //this.deferredInitIntervalId = setInterval(this.deferredInit.bind(this), 1000);
+            this.deferredInitIntervalId = setInterval(this.deferredInit.bind(this), 1000);
         },
 
         // Try go get GPS position for zero coords
@@ -624,8 +624,9 @@
 
             this.updatePosition();
 
-            //clearInterval(this.deferredInitIntervalId);
-            //this.deferredInitIntervalId = 0;
+            clearInterval(this.deferredInitIntervalId);
+            this.deferredInitIntervalId = 0;
+            alert();
 
             return true;
         },
