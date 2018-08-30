@@ -15,6 +15,7 @@
     var LINE_COORDS = {};
     var i = 0;
     var _quaternion;
+    var worldAxis;
 
     function GPSUtils() { }
 
@@ -378,7 +379,6 @@
         cAlpha: null,
         cBeta: null,
         cGamma: null,
-        worldAxis: null,
 
         schema: {
             fixTime: {
@@ -418,8 +418,6 @@
             }
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
-
-            this.worldAxis = this.el.object3D.getWorldDirection();
 
             //Event listener for 'compassneedscalibration'
             window.addEventListener(
@@ -553,11 +551,14 @@
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
             var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
+            if(worldAxis == null){
+                worldAxis = this.el.object3D.getWorldDirection();
+            }
             
-            document.querySelector("#test_el").innerText = "1: " + this.worldAxis.angleTo( axis );
+            document.querySelector("#test_el").innerText = "2: " + worldAxis.angleTo( axis );
             // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
-            var cameraQuaternion = this.el.object3D.quaternion;
-            this.lookControls.yawObject.rotation.y = this.worldAxis.angleTo( axis );
+            // var cameraQuaternion = this.el.object3D.quaternion;
+            this.lookControls.yawObject.rotation.y = worldAxis.angleTo( axis );
 
             // if(_quaternion == null){
             //     _quaternion = new THREE.Quaternion();
