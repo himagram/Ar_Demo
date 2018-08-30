@@ -547,12 +547,16 @@
             //var offset = heading + adjustment;
 
             //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
-            this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
+            // var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma));
+            // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
+            var cameraQuaternion = this.el.object3D.quaternion;
+            var oQuaternion = new THREE.Quaternion();
+            oQuaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            document.querySelector("#test_el").innerText = "3232";
-            document.querySelector("#test_el").innerText = "alpha:" + this.cAlpha + "\nbeta: " + this.cBeta + "\ngamma:" + this.cGamma;
+            cameraQuaternion.copy(oQuaternion);
+            document.querySelector("#test_el").innerText = "cameraX:" + cameraQuaternion.x + "\ncameraY:" + cameraQuaternion.y + "\ncameraZ:" + cameraQuaternion.z + "\ncameraW:" + cameraQuaternion.w;
+            document.querySelector("#test_el").innerText = "quaternionX:" + oQuaternion.x + "\nquaternionY:" + oQuaternion.y + "\nquaternionZ:" + oQuaternion.z + "\nquaternionW:" + oQuaternion.w;
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
             //alert(99);
