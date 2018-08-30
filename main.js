@@ -624,8 +624,8 @@
 
             this.updatePosition();
 
-            clearInterval(this.deferredInitIntervalId);
-            this.deferredInitIntervalId = 0;
+            //clearInterval(this.deferredInitIntervalId);
+            //this.deferredInitIntervalId = 0;
 
             return true;
         },
