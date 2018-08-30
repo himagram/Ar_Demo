@@ -550,7 +550,7 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // document.querySelector("#test_el").innerText = "123";
+            document.querySelector("#test_el").innerText = "123";
 
             // document.querySelector("#compass_heading").innerText = heading;
             // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
@@ -608,7 +608,7 @@
         init: function () {
             if (this.deferredInit()) { return; }
 
-            this.deferredInitIntervalId = setInterval(this.deferredInit.bind(this), 1000);
+            //this.deferredInitIntervalId = setInterval(this.deferredInit.bind(this), 1000);
         },
 
         // Try go get GPS position for zero coords
