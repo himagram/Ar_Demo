@@ -524,7 +524,7 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            document.querySelector("#test_el").innerText = "asddsa";
+            document.querySelector("#test_el").innerText = "3123";
         },
 
         remove: function () {
