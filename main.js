@@ -430,13 +430,12 @@
         },
 
         tick: function (time, timeDelta) {
-            // if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
+            if (this.heading === null || this.lastTimestamp > (time - this.data.fixTime)) { return; }
             if (this.lastTimestamp > (time - this.data.fixTime)) { return; }
 
             this.lastTimestamp = time;
-            //this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            this.updateRotation();
+            
+            //this.updateRotation();
         },
 
         handlerOrientation: function (evt) {
@@ -447,6 +446,8 @@
 
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
+
+            document.querySelector("#test_el").innerText = "test_el";
 
             var heading = null;
 
