@@ -435,7 +435,7 @@
 
             this.lastTimestamp = time;
             
-            //this.updateRotation();
+            this.updateRotation();
         },
 
         handlerOrientation: function (evt) {
@@ -448,7 +448,6 @@
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
 
             document.querySelector("#test_el").innerText = "test_el";
-            return;
 
             var heading = null;
 
