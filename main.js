@@ -443,163 +443,100 @@
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
-            this.cGamma = evt.gamma;
+            this.cGamma = evt.gamma;            
 
-            
-            
-            
-            // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // this.el.object3D.quaternion.normalize();
-            
+            var heading = null;
 
-            //var heading = null;
+            if (typeof (evt.webkitCompassHeading) != 'undefined') {
 
-            // if (typeof (evt.webkitCompassHeading) != 'undefined') {
+                if (evt.webkitCompassAccuracy < 50) {
+                    heading = evt.webkitCompassHeading;
+                } else {
+                    console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
+                }
 
-            //     if (evt.webkitCompassAccuracy < 50) {
-            //         //heading = evt.webkitCompassHeading;
-            //     } else {
-            //         console.warn('webkitCompassAccuracy is evt.webkitCompassAccuracy');
-            //     }
+            } else if (evt.alpha !== null) {
+                if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
+                    heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
+                } else {
+                    console.warn('evt.absolute === false');
+                }
+            } else {
+                console.warn('evt.alpha === null');
+            }
 
-            // } else if (evt.alpha !== null) {
-            //     if (evt.absolute === true || typeof (evt.absolute) == 'undefined') {
-            //         //heading = CompassUtils.getCompassHeading(evt.alpha, evt.beta, evt.gamma);
-            //     } else {
-            //         console.warn('evt.absolute === false');
-            //     }
-            // } else {
-            //     console.warn('evt.alpha === null');
-            // }
+            // Adjust compass heading
+            var adjustment = 0;
+            if (this.defaultOrientation === "landscape") {
+                adjustment = -90;
+            }
 
-            // // Adjust compass heading
-            // var adjustment = 0;
-            // if (this.defaultOrientation === "landscape") {
-            //     adjustment = -90;
-            // }
+            var browserOrientation = CompassUtils.getBrowserOrientation();
 
-            // var browserOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof browserOrientation !== "undefined") {
+                this.currentOrientation = browserOrientation.split("-");
 
-            // if (typeof browserOrientation !== "undefined") {
-            //     this.currentOrientation = browserOrientation.split("-");
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            //     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                    if (this.defaultOrientation !== this.currentOrientation[0]) {
+                        if (this.defaultOrientation === "landscape") {
+                            adjustment -= 270;
+                        } else {
+                            adjustment -= 90;
+                        }
+                    }
 
-            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
-            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            //         if (this.defaultOrientation !== this.currentOrientation[0]) {
-            //             if (this.defaultOrientation === "landscape") {
-            //                 adjustment -= 270;
-            //             } else {
-            //                 adjustment -= 90;
-            //             }
-            //         }
+                    if (this.currentOrientation[1] === "secondary") {
+                        adjustment -= 180;
+                    }
+                }
 
-            //         if (this.currentOrientation[1] === "secondary") {
-            //             adjustment -= 180;
-            //         }
-            //     }
+                document.querySelector("#device_orientation").innerText = browserOrientation;
+            }
 
-            //     document.querySelector("#device_orientation").innerText = browserOrientation;
-            // }
+            heading = heading + adjustment;
 
-            //heading = heading + adjustment;
-
-            //this.heading = heading;
+            this.heading = heading;
         },
 
         updateRotation: function () {
-            //var heading = 360 - this.heading;
+            var heading = 360 - this.heading;
 
-            // var deviceOrientation = CompassUtils.getBrowserOrientation();
-            // if (typeof deviceOrientation !== "undefined") {
-            //     var currentOrientation = deviceOrientation.split("-");
+            var deviceOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof deviceOrientation !== "undefined") {
+                var currentOrientation = deviceOrientation.split("-");
 
-            //     if (currentOrientation[0] === "landscape") {
-            //         var cameraRotation = this.el.getAttribute('rotation').y;
-            //         document.querySelector("#test_el").innerText = "cameraRotationY: " + cameraRotation;
-            //     } else {
-            //         var cameraRotation = this.el.getAttribute('rotation').x;
-            //         document.querySelector("#test_el").innerText = "cameraRotatioX: " + cameraRotation;
-            //     }
-            // }
-            //var cameraRotation = this.el.getAttribute('rotation').y;
-            // document.querySelector("#test_el").innerText = "RotationX: " + this.el.getAttribute('rotation').x
-            //     + "RotationY: " + this.el.getAttribute('rotation').y + "RotationZ: " + this.el.getAttribute('rotation').z;
-            //var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
-
-            // var adjustment = 0
-            // var deviceOrientation = CompassUtils.getBrowserOrientation();
-            // if (typeof deviceOrientation !== "undefined") {
-            //     var currentOrientation = deviceOrientation.split("-");
-
-            //     if (currentOrientation[0] === "landscape") {
-            //         adjustment -= 270; 
-            //     } else {
-            //         adjustment -= 90;
-            //     }
-
-            //     if (currentOrientation[1] === "secondary") {
-            //       adjustment -= 180;
-            //     }
-            // }
-
-            //var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            //var offset = heading + adjustment;
-
-            //this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
-
-
-            var hd = CompassUtils.getCompassHeading(this.cAlpha, this.cBeta, this.cGamma);
+                if (currentOrientation[0] === "landscape") {
+                    var cameraRotation = this.el.getAttribute('rotation').y;
+                } else {
+                    var cameraRotation = this.el.getAttribute('rotation').x;
+                }
+            }
             var cameraRotation = this.el.getAttribute('rotation').y;
+            var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
-            var axis = new THREE.Vector3(THREE.Math.degToRad(this.cAlpha), THREE.Math.degToRad(this.cBeta), -THREE.Math.degToRad(this.cGamma)).normalize();
-            //if(worldAxis == null){
-                worldAxis = this.el.object3D.getWorldDirection().normalize();
-            //}
+            var adjustment = 0
+            var deviceOrientation = CompassUtils.getBrowserOrientation();
+            if (typeof deviceOrientation !== "undefined") {
+                var currentOrientation = deviceOrientation.split("-");
 
-            var newEuler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ')
+                if (currentOrientation[0] === "landscape") {
+                    adjustment -= 270; 
+                } else {
+                    adjustment -= 90;
+                }
 
-            var eulerRotation = this.el.object3D.rotation;
-            document.querySelector("#test_el").innerText = "cameraRotation: " + (hd - cameraRotation);
-            document.querySelector("#test_el2").innerText = "eulerX: " + eulerRotation.x + "\neulerY: " + eulerRotation.y + "\neulerZ: " + eulerRotation.z
-                + "\nNewX: " + newEuler.x + "\nNewY: " + newEuler.y + "\nNewZ: " + newEuler.z;
+                if (currentOrientation[1] === "secondary") {
+                  adjustment -= 180;
+                }
+            }
 
-            // this.el.object3D.quaternion.setFromAxisAngle(axis, 0.01);
-            // var cameraQuaternion = this.el.object3D.quaternion;
-            i = i + 1;
-            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(i);
+            var offset = (heading - (cameraRotation - yawRotation)) % 360;
+            var offset = heading + adjustment;
 
-            // if(_quaternion == null){
-            //     _quaternion = new THREE.Quaternion();
-            //     _quaternion.copy(cameraQuaternion);    
-            // }
-            
-            // var oQuaternion = new THREE.Quaternion();
-            // oQuaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // // this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
-            // // this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));
-            // cameraQuaternion.copy(oQuaternion);
-            
-            // document.querySelector("#test_el2").innerText = "quaternionX:" + oQuaternion.x + "\nquaternionY:" + oQuaternion.y + "\nquaternionZ:" + oQuaternion.z + "\nquaternionW:" + oQuaternion.w;
-            // document.querySelector("#compass_heading").innerText = heading;
-            // document.querySelector("#yaw_angle").innerText = this.lookControls.yawObject.rotation.y;
-            //alert(99);
-            // i = i + 1;
-            // document.querySelector("#test_el").innerText = "tsst:" + i;
-            // var euler = new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ');
-            // var axis = new THREE.Vector3(0,0,1);
-            // var _quaternion0 = new THREE.Quaternion();
-            // var _quaternion1 = new THREE.Quaternion(  - Math.sqrt( 0.5 ), 0, 0,  Math.sqrt( 0.5 ) );
-            // _quaternion0.setFromAxisAngle(axis, Math.PI / 2);
-            
-            // // var qm = new THREE.Quaternion();
-            // // THREE.Quaternion.slerp(this.el.object3D.quaternion, quaternion, qm, 0.07);
-            // this.el.object3D.quaternion.setFromEuler( euler );
-            // this.el.object3D.quaternion.multiply( _quaternion1 );
-            // this.el.object3D.quaternion.multiply( _quaternion0 );
-            
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);            
         },
 
         remove: function () {
