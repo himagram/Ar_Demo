@@ -324,7 +324,7 @@
             // After watching position successfully, update coordinate of component
             this.coords = position.coords;
             // Update relative position in AR/VR scence
-            if(this.zeroCoords != null){
+            if (this.zeroCoords != null) {
                 return;
             }
             this.updatePosition();
@@ -443,7 +443,7 @@
 
             this.cAlpha = evt.alpha;
             this.cBeta = evt.beta;
-            this.cGamma = evt.gamma;            
+            this.cGamma = evt.gamma;
 
             var heading = null;
 
@@ -523,20 +523,20 @@
                 var currentOrientation = deviceOrientation.split("-");
 
                 if (currentOrientation[0] === "landscape") {
-                    adjustment -= 270; 
+                    adjustment -= 270;
                 } else {
                     adjustment -= 90;
                 }
 
                 if (currentOrientation[1] === "secondary") {
-                  adjustment -= 180;
+                    adjustment -= 180;
                 }
             }
 
             var offset = (heading - (cameraRotation - yawRotation)) % 360;
             var offset = heading + adjustment;
 
-            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);            
+            this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
         },
 
         remove: function () {
@@ -567,10 +567,12 @@
 
         // Path
         points: [
-            { latitude: 21.0464312, longitude: 105.795600, altitude: 0 },
-            { latitude: 21.046138, longitude: 105.795292, altitude: 20 },
-            { latitude: 21.046629, longitude: 105.794876, altitude: 10 },
-            { latitude: 21.0464312, longitude: 105.794695, altitude: 0 }
+            // { latitude: 21.0464312, longitude: 105.795600, altitude: 0 },
+            // { latitude: 21.046138, longitude: 105.795292, altitude: 20 },
+            // { latitude: 21.046629, longitude: 105.794876, altitude: 10 },
+            // { latitude: 21.0464312, longitude: 105.794695, altitude: 0 }
+            { latitude: 21.046264, longitude: 105.795553, altitude: 30 },
+            { latitude: 21.046279, longitude: 105.794673, altitude: 10 }
         ],
 
         init: function () {
