@@ -521,11 +521,11 @@
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
 
-            this.el.setAttribute("look-controls", {enabled:false});
+            this.el.setAttribute("look-controls", {hmdEnabled:false});
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(this.cBeta), THREE.Math.degToRad(this.cAlpha), -THREE.Math.degToRad(this.cGamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
 
-            document.querySelector("#test_el").innerText = "112312";
+            document.querySelector("#test_el").innerText = "123";
         },
 
         remove: function () {
