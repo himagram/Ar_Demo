@@ -448,6 +448,7 @@
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
 
             document.querySelector("#test_el").innerText = "test_el";
+            return;
 
             var heading = null;
 
@@ -521,24 +522,7 @@
             var cameraRotation = this.el.getAttribute('rotation').y;
             var yawRotation = THREE.Math.radToDeg(this.lookControls.yawObject.rotation.y);
 
-            var adjustment = 0
-            var deviceOrientation = CompassUtils.getBrowserOrientation();
-            if (typeof deviceOrientation !== "undefined") {
-                var currentOrientation = deviceOrientation.split("-");
-
-                if (currentOrientation[0] === "landscape") {
-                    adjustment -= 270;
-                } else {
-                    adjustment -= 90;
-                }
-
-                if (currentOrientation[1] === "secondary") {
-                    adjustment -= 180;
-                }
-            }
-
             var offset = (heading - (cameraRotation - yawRotation)) % 360;
-            var offset = heading + adjustment;
 
             this.lookControls.yawObject.rotation.y = THREE.Math.degToRad(offset);
         },
