@@ -435,7 +435,7 @@
 
             this.lastTimestamp = time;
             
-            this.updateRotation();
+            //this.updateRotation();
         },
 
         handlerOrientation: function (evt) {
