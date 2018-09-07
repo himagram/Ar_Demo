@@ -400,11 +400,11 @@
             var initSetting = this.data.orientationEvent;
 
             if (initSetting == 'auto') {
-
-                if ('ondeviceorientation' in window) {
-                    this.data.orientationEvent = 'deviceorientation';
-                } else if ('ondeviceorientationabsolute' in window) {
+                
+                if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
+                } else if ('ondeviceorientation' in window) {
+                    this.data.orientationEvent = 'deviceorientation';
                 } else {
                     this.data.orientationEvent = '';
                     console.error('Compass not supported');
