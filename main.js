@@ -284,6 +284,9 @@
 
             if (initSetting == 'auto') {
 
+                var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                alert(iOs);
+
                 if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
                 } else if ('ondeviceorientation' in window) {
