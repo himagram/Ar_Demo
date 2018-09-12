@@ -236,16 +236,16 @@
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             p.y = 0.5;
 
-            document.querySelector("#crd_longitude").innerText = this.coords.longitude;
-            document.querySelector("#crd_latitude").innerText = this.coords.latitude;
+            // document.querySelector("#crd_longitude").innerText = this.coords.longitude;
+            // document.querySelector("#crd_latitude").innerText = this.coords.latitude;
 
-            document.querySelector("#crd_x").innerText = p.x;
-            document.querySelector("#crd_y").innerText = p.y;
-            document.querySelector("#crd_z").innerText = p.z;
+            // document.querySelector("#crd_x").innerText = p.x;
+            // document.querySelector("#crd_y").innerText = p.y;
+            // document.querySelector("#crd_z").innerText = p.z;
 
-            document.querySelector("#zero_crd_longitude").innerText = this.zeroCoords.longitude;
-            document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
-            document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
+            // document.querySelector("#zero_crd_longitude").innerText = this.zeroCoords.longitude;
+            // document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
+            // document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
 
             if (LINE_COORDS != null) {
@@ -311,7 +311,7 @@
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
 
-            document.querySelector("#test_el").innerText = "lookControls321";
+            //document.querySelector("#test_el").innerText = "lookControls321";
         },
 
         remove: function () {
@@ -384,11 +384,11 @@
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
-                    document.querySelector("#line_crd_longitude").innerText = point.longitude;
-                    document.querySelector("#line_crd_latitude").innerText = point.latitude;
-                    document.querySelector("#line_x").innerText = p.x;
-                    document.querySelector("#line_y").innerText = p.y;
-                    document.querySelector("#line_z").innerText = p.z;
+                    // document.querySelector("#line_crd_longitude").innerText = point.longitude;
+                    // document.querySelector("#line_crd_latitude").innerText = point.latitude;
+                    // document.querySelector("#line_x").innerText = p.x;
+                    // document.querySelector("#line_y").innerText = p.y;
+                    // document.querySelector("#line_z").innerText = p.z;
 
                     LINE_COORDS = point;
                 });
