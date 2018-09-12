@@ -301,6 +301,8 @@
                     console.error('Compass not supported');
                     return;
                 }
+
+                document.querySelector("#test_el2").innerText = "orientationEvent: " + this.data.orientationEvent;
             }
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
