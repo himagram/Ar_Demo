@@ -344,7 +344,7 @@
         points: [
             { latitude: 21.046368, longitude: 105.794631, altitude: 0 },
             { latitude: 21.046283, longitude: 105.795146, altitude: 10 },
-            { latitude: 21.046366, longitude: 105.794697, altitude: 0 }
+            { latitude: 21.046399, longitude: 105.795743, altitude: 0 }
         ],
 
         init: function () {
