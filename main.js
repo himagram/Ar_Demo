@@ -286,11 +286,16 @@
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
                 // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                    alert("true");
+                let isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+                if(isIOS){
+                    document.querySelector("#test_el").innerText = "iOS: true";
+                }
+                else{
+                    document.querySelector("#test_el").innerText = "iOS: false";
                 }
 
-                if ('ondeviceorientationabsolute' in window) {
+                if (!isIOS && ('ondeviceorientationabsolute' in window)) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
                 } else if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientation';
@@ -299,6 +304,7 @@
                     console.error('Compass not supported');
                     return;
                 }
+                
             }
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
@@ -314,11 +320,8 @@
         },
 
         handlerOrientation: function (evt) {
-
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
-
-            //document.querySelector("#test_el").innerText = "lookControls321";
         },
 
         remove: function () {
