@@ -286,11 +286,9 @@
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
                 // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                    alert("true");
-                }
+                let isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
-                if ('ondeviceorientationabsolute' in window) {
+                if (!isIOS && 'ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
                 } else if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientation';
