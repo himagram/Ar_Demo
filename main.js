@@ -165,7 +165,7 @@
 
             if (i < roadPoints.length - 2) {
                 //face.color.set(new THREE.Color(Math.random() * 0xffffff - 1));
-                face.color.set(new THREE.Color(0xffff00));
+                face.color.set(new THREE.Color(0xF98181));
                 geometry.faces.push(face);
             }
         }
