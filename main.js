@@ -286,7 +286,9 @@
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
                 // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                alert(0);
                 let isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+                alert(1);
 
                 if(isIOS){
                     document.querySelector("#test_el").innerText = "iOS: true";
