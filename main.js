@@ -12,7 +12,7 @@
 
     var EARTH_RADIUS = 6378160;
     var GPS_MAX_ACCURY = 100;
-    var LINE_COORDS = {};
+    var LINE_COORDS = null;
 
     function GPSUtils() { }
 
@@ -251,7 +251,9 @@
             document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
 
-            document.querySelector("#line_distance").innerText = GPSUtils.calculateDistance(this.coords, LINE_COORDS);
+            if (LINE_COORDS != null) {
+                document.querySelector("#line_distance").innerText = GPSUtils.calculateDistance(this.coords, LINE_COORDS);
+            }
 
             this.el.setAttribute('position', p);
         },
@@ -343,9 +345,9 @@
 
         // Path
         points: [
-            { latitude: 21.046458, longitude: 105.7946308, altitude: 10 },
-            { latitude: 21.046360, longitude: 105.795178, altitude: 20 },
-            { latitude: 21.046368, longitude: 105.794687, altitude: 0 }
+            { latitude: 21.046368, longitude: 105.794631, altitude: 10 },
+            { latitude: 21.046368, longitude: 105.795178, altitude: 20 },
+            { latitude: 21.046368, longitude: 105.795704, altitude: 0 }
         ],
 
         init: function () {
