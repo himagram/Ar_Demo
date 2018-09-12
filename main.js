@@ -286,18 +286,13 @@
                 var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
                 // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                alert(0);
                 let isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-                alert(1);
 
-                if(isIOS){
-                    document.querySelector("#test_el").innerText = "iOS: true";
-                }
-                else{
-                    document.querySelector("#test_el").innerText = "iOS: false";
-                }
+                document.querySelector("#test_el").innerText = "iOS: " + (isIOS ? "true" : "false");
 
-                if (!isIOS && ('ondeviceorientationabsolute' in window)) {
+                if(isIOS && 'ondeviceorientation' in window){
+                    this.data.orientationEvent = 'deviceorientation';
+                } else if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
                 } else if ('ondeviceorientation' in window) {
                     this.data.orientationEvent = 'deviceorientation';
@@ -306,7 +301,6 @@
                     console.error('Compass not supported');
                     return;
                 }
-                
             }
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
