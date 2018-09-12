@@ -234,7 +234,7 @@
             // this.coords.altitude = this.zeroCoords.altitude + 0.5;
 
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
-            p.y = 0.5;
+            p.y = 0;
 
             // document.querySelector("#crd_longitude").innerText = this.coords.longitude;
             // document.querySelector("#crd_latitude").innerText = this.coords.latitude;
@@ -342,9 +342,9 @@
 
         // Path
         points: [
-            { latitude: 21.046368, longitude: 105.794631, altitude: 10 },
-            { latitude: 21.046368, longitude: 105.795178, altitude: 20 },
-            { latitude: 21.046368, longitude: 105.795704, altitude: 0 }
+            { latitude: 21.046368, longitude: 105.794631, altitude: 0 },
+            { latitude: 21.046283, longitude: 105.795146, altitude: 10 },
+            { latitude: 21.046366, longitude: 105.794697, altitude: 0 }
         ],
 
         init: function () {
