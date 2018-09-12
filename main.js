@@ -283,7 +283,7 @@
             var initSetting = this.data.orientationEvent;
 
             if (initSetting == 'auto') {
-                
+
                 if ('ondeviceorientationabsolute' in window) {
                     this.data.orientationEvent = 'deviceorientationabsolute';
                 } else if ('ondeviceorientation' in window) {
@@ -343,10 +343,9 @@
 
         // Path
         points: [
-            { latitude: 21.0464312, longitude: 105.795600, altitude: 0 },
-            { latitude: 21.046138, longitude: 105.795292, altitude: 20 },
-            { latitude: 21.046629, longitude: 105.794876, altitude: 10 },
-            { latitude: 21.0464312, longitude: 105.794695, altitude: 0 }
+            { latitude: 21.046458, longitude: 105.7946308, altitude: 10 },
+            { latitude: 21.046360, longitude: 105.795178, altitude: 20 },
+            { latitude: 21.046368, longitude: 105.794687, altitude: 0 }
         ],
 
         init: function () {
