@@ -228,6 +228,7 @@
 
             if (this.zeroCoords == null) {
                 this.zeroCoords = this.coords;
+                this.zeroCoords.altitude = 0;
             }
 
             // set y = 0.5 for testing
