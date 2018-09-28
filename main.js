@@ -266,7 +266,8 @@
     });
 
     AFRAME.registerComponent('compass-rotation', {
-
+		compassdir: null,
+		
         schema: {
             fixTime: {
                 type: 'int',
@@ -316,11 +317,9 @@
         },
 
         handlerOrientation: function (evt) {
-			
-			var compassdir = "";
 			var alpha_alt = evt.alpha;
 			
-			if(event.webkitCompassHeading) {
+			if(compassdir == null && event.webkitCompassHeading) {
 				// Apple works only with this, alpha doesn't work
 				compassdir = event.webkitCompassHeading;  
 				alpha_alt = 360 - compassdir;
