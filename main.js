@@ -321,8 +321,8 @@
 			
 			if(this.compassdir == null && event.webkitCompassHeading != null) {
 				// Apple works only with this, alpha doesn't work
-				compassdir = event.webkitCompassHeading;  
-				alpha_alt = 360 - compassdir;
+				this.compassdir = event.webkitCompassHeading;  
+				alpha_alt = 360 - this.compassdir;
 			}
 			
 			document.querySelector("#test_el2").innerText = "9compassdir: " + compassdir + "\nAlpha: " + alpha_alt;
