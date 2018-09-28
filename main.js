@@ -318,16 +318,17 @@
         handlerOrientation: function (evt) {
 			
 			var compassdir = "";
+			var alpha_alt = evt.alpha;
 			
 			if(event.webkitCompassHeading) {
 				// Apple works only with this, alpha doesn't work
 				compassdir = event.webkitCompassHeading;  
-				evt.alpha = 360 - compassdir;
+				alpha_alt = 360 - compassdir;
 			}
 			
-			document.querySelector("#test_el2").innerText = "88compassdir: " + compassdir + "\nAlpha: " + evt.alpha;
+			document.querySelector("#test_el2").innerText = "88compassdir: " + compassdir + "\nAlpha: " + alpha_alt;
 		
-            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
+            this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(alpha_alt), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
         },
 
