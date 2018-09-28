@@ -265,8 +265,8 @@
 
     });
 
+	var compassdir = null;
     AFRAME.registerComponent('compass-rotation', {
-		compassdir: null,
 		
         schema: {
             fixTime: {
@@ -319,10 +319,10 @@
         handlerOrientation: function (evt) {
 			var alpha_alt = evt.alpha;
 			
-			if(this.compassdir == null && event.webkitCompassHeading != null) {
+			if(compassdir == null && event.webkitCompassHeading != null) {
 				// Apple works only with this, alpha doesn't work
-				this.compassdir = event.webkitCompassHeading;  
-				alpha_alt = 360 - Number(this.compassdir);
+				compassdir = event.webkitCompassHeading;  
+				alpha_alt = 360 - Number(compassdir);
 			}
 			
 			document.querySelector("#test_el2").innerText = "9compassdir: " + compassdir + "\nAlpha: " + alpha_alt;
