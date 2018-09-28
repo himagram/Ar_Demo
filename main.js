@@ -301,8 +301,6 @@
                     console.error('Compass not supported');
                     return;
                 }
-
-                document.querySelector("#test_el2").innerText = "orientationEvent: " + this.data.orientationEvent;
             }
 
             window.addEventListener(this.data.orientationEvent, this.handlerOrientation.bind(this), false);
@@ -318,6 +316,16 @@
         },
 
         handlerOrientation: function (evt) {
+			
+			var compassdir = "";
+			
+			if(event.webkitCompassHeading) {
+				// Apple works only with this, alpha doesn't work
+				compassdir = event.webkitCompassHeading;  
+			}
+			
+			document.querySelector("#test_el2").innerText = "compassdir: " + compassdir;
+		
             this.el.object3D.quaternion.setFromEuler(new THREE.Euler(THREE.Math.degToRad(evt.beta), THREE.Math.degToRad(evt.alpha), -THREE.Math.degToRad(evt.gamma), 'YXZ'));
             this.el.object3D.quaternion.multiply(new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)));  // X軸を中心に90度回転します。
         },
