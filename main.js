@@ -237,16 +237,16 @@
             var p = GPSUtils.getRelativePosition(this.el.getAttribute('position'), this.zeroCoords, this.coords);
             p.y = 0;
 
-            // document.querySelector("#crd_longitude").innerText = this.coords.longitude;
-            // document.querySelector("#crd_latitude").innerText = this.coords.latitude;
+            document.querySelector("#crd_longitude").innerText = this.coords.longitude;
+            document.querySelector("#crd_latitude").innerText = this.coords.latitude;
 
-            // document.querySelector("#crd_x").innerText = p.x;
-            // document.querySelector("#crd_y").innerText = p.y;
-            // document.querySelector("#crd_z").innerText = p.z;
+            document.querySelector("#crd_x").innerText = p.x;
+            document.querySelector("#crd_y").innerText = p.y;
+            document.querySelector("#crd_z").innerText = p.z;
 
-            // document.querySelector("#zero_crd_longitude").innerText = this.zeroCoords.longitude;
-            // document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
-            // document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
+            document.querySelector("#zero_crd_longitude").innerText = this.zeroCoords.longitude;
+            document.querySelector("#zero_crd_latitude").innerText = this.zeroCoords.latitude;
+            document.querySelector("#zero_y").innerText = this.zeroCoords.altitude;
             document.querySelector("#crd_accuracy").innerText = this.coords.accuracy;
 
             if (LINE_COORDS != null) {
@@ -401,11 +401,11 @@
 
                     GPSUtils.getRelativePosition(p, this.cameraGpsPosition.zeroCoords, point);
                     relativePoints.push(p);
-                    // document.querySelector("#line_crd_longitude").innerText = point.longitude;
-                    // document.querySelector("#line_crd_latitude").innerText = point.latitude;
-                    // document.querySelector("#line_x").innerText = p.x;
-                    // document.querySelector("#line_y").innerText = p.y;
-                    // document.querySelector("#line_z").innerText = p.z;
+                    document.querySelector("#line_crd_longitude").innerText = point.longitude;
+                    document.querySelector("#line_crd_latitude").innerText = point.latitude;
+                    document.querySelector("#line_x").innerText = p.x;
+                    document.querySelector("#line_y").innerText = p.y;
+                    document.querySelector("#line_z").innerText = p.z;
 
                     LINE_COORDS = point;
                 });
